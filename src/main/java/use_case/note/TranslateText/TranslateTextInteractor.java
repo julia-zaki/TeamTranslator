@@ -22,8 +22,14 @@ public class TranslateTextInteractor implements TranslateTextInputBoundary {
     @Override
     public void execute(TranslateTextInputData translateTextInputData) {
 
-        if (!translateTextInputData.getPassword().equals(translateTextInputData.getRepeatPassword())) {
+        if (!userDataAccessObject.existsByName(username)) {
+            TranslateTextPresenter.prepareFailView(username + ": Account does not exist.");
+        }
+        else if (!translateTextInputData.getPassword().equals(translateTextInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
+        }
+        else if (!userDataAccessObject.existsByLanguage(translateTextInputData.getInputLanguage())) {
+            userPresenter.prepareFailView("Selected language does not exist in translator.");
         }
         else {
             final User user = userFactory.create(translateTextInputData.getUsername(), translateTextInputData.getPassword());
