@@ -2,7 +2,7 @@
 # Team Names and GitHub Usernames:
 Julia Zaki / julia-zaki
 
-Christina Huang /
+Christina
 .
 .
 .
