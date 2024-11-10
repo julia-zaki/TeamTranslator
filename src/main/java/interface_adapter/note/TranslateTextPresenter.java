@@ -3,7 +3,7 @@ package interface_adapter.note;
 import use_case.note.TranslateTextOutputBoundary;
 
 /**
- * The presenter for our Note viewing and editing program.
+ * The presenter for our translation program.
  */
 public class TranslateTextPresenter implements TranslateTextOutputBoundary {
 
@@ -14,7 +14,7 @@ public class TranslateTextPresenter implements TranslateTextOutputBoundary {
     }
 
     /**
-     * Prepares the success view for the Note related Use Cases.
+     * Prepares the success view for the Translate related Use Cases.
      *
      * @param translatedText the output data
      */
@@ -26,7 +26,7 @@ public class TranslateTextPresenter implements TranslateTextOutputBoundary {
     }
 
     /**
-     * Prepares the failure view for the Note related Use Cases.
+     * Prepares the failure view for the Translate related Use Cases.
      *
      * @param errorMessage the explanation of the failure
      */
