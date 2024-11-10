@@ -3,7 +3,7 @@ package interface_adapter.note;
 import use_case.note.TranslateTextOutputBoundary;
 
 /**
- * The presenter for our translation program.
+ * The presenter for the translation program.
  */
 public class TranslateTextPresenter implements TranslateTextOutputBoundary {
 
