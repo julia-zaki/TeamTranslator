@@ -6,7 +6,8 @@ package interface_adapter.translateText;
 public class TranslateState {
     private String text = "";
     private String error;
-    private String language;
+    private String inputLanguage;
+    private String outputLanguage;
 
     public String getText() {
         return text;
@@ -16,12 +17,20 @@ public class TranslateState {
         this.text = text;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getInputLanguage() {
+        return inputLanguage;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setInputLanguage(String inputLanguage) {
+        this.inputLanguage = inputLanguage;
+    }
+
+    public void setOutputLanguage(String outputLanguage) {
+        this.outputLanguage = outputLanguage;
+    }
+
+    public String getOutputLanguage() {
+        return outputLanguage;
     }
 
     public void setError(String errorMessage) {
