@@ -26,8 +26,6 @@ import use_case.translateText.TranslateTextDataAccessInterface;
  */
 public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessInterface {
 
-    public static final String LANGUAGE_KEY = "language";
-    public static final String TEXT_KEY = "text";
     private static final String AUTH_KEY = "a3c3d2b6-e5e2-42ce-aac7-aba5f20a0571:fx";
     private final Map<String, String> codeToLanguage = new HashMap<>();
     private final Map<String, String> languageToCode = new HashMap<>();
@@ -47,7 +45,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
      * Translate a text into the specified output language.
      *
      * @param text           the text to be translated.
-     * @param inputLanguage  the language name of text (ie. English). Set to null to detect language.
+     * @param inputLanguage  the language name of text (ie. English). Can be "Detect Language".
      * @param outputLanguage the language name (ie. English) to which the text is translated
      * @return a set withs keys "text" and "language" with their corresponding values
      * @throws DataAccessException if the text could not be translated for any reason
@@ -68,15 +66,16 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
             throw new DataAccessException(ex.getMessage());
         }
 
-        if (inputLanguage == null) {
-            result.put(LANGUAGE_KEY, codeToLanguage(translationResult.getDetectedSourceLanguage().toUpperCase()));
+        if ("Detect Language".equalsIgnoreCase(inputLanguage)) {
+            result.put(Constants.LANGUAGE_KEY, codeToLanguage(translationResult.getDetectedSourceLanguage()
+                    .toUpperCase()));
         }
 
         else {
-            result.put(LANGUAGE_KEY, inputLanguage);
+            result.put(Constants.LANGUAGE_KEY, inputLanguage);
         }
 
-        result.put(TEXT_KEY, translationResult.getText());
+        result.put(Constants.TEXT_KEY, translationResult.getText());
         return result;
 
     }
@@ -160,10 +159,9 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
      *
      * @param code the language code (ie. en)
      * @return the language name (ie. English)
-     * @throws DataAccessException if the language name could not be retrieved for any reason
      */
 
-    private String codeToLanguage(String code) throws DataAccessException {
+    private String codeToLanguage(String code) {
         String result = null;
         if (code != null) {
             result = codeToLanguage.get(code);
@@ -172,24 +170,29 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
     }
 
     /**
-     * Convert from language name to language code.
+     * Convert from language name to language code that is understood by the API methods.
      *
-     * @param language the language name (ie. English)
-     * @return the language code (ie. en)
-     * @throws DataAccessException if the language code could not be retrieved for any reason
+     * @param language the language name (example: English)
+     * @return the language code (example: en)
      */
-    private String languageToCode(String language) throws DataAccessException {
-        return languageToCode.get(language);
+    private String languageToCode(String language) {
+        final String result;
+        if ("Detect Language".equals(language)) {
+            result = null;
+        }
+
+        else {
+            result = languageToCode.get(language);
+        }
+        return result;
     }
 
     /**
      * Return all possible input languages available for translation.
-     *
      * @return the set of input languages
-     * @throws DataAccessException if the input languages could not be retrieved for any reason
      */
     @Override
-    public Set<String> getInputLanguages() throws DataAccessException {
+    public Set<String> getInputLanguages() {
         return inputLanguageToOutputLanguages.keySet();
     }
 
@@ -199,10 +202,9 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
      *
      * @param inputLanguage the input language
      * @return the set of output languages
-     * @throws DataAccessException if the output languages could not be retrieved for any reason
      */
     @Override
-    public Set<String> getOutputLanguages(String inputLanguage) throws DataAccessException {
+    public Set<String> getOutputLanguages(String inputLanguage) {
         final Set<String> codes;
         final Set<String> result = new HashSet<>();
         if (inputLanguage != null) {
