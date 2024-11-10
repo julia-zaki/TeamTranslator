@@ -1,6 +1,6 @@
-package interface_adapter.note;
+package interface_adapter.translateText;
 
-import use_case.note.TranslateTextOutputBoundary;
+import use_case.translateText.TranslateTextOutputBoundary;
 
 /**
  * The presenter for the translation program.

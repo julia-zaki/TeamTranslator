@@ -1,19 +1,19 @@
-package interface_adapter.note;
+package interface_adapter.translateText;
 
 /**
  * The State for a note.
  * <p>For this example, a note is simplay a string.</p>
  */
-public class NoteState {
-    private String note = "";
+public class TranslateState {
+    private String text = "";
     private String error;
 
-    public String getNote() {
-        return note;
+    public String getText() {
+        return text;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public void setError(String errorMessage) {
