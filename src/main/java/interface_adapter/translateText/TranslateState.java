@@ -1,12 +1,12 @@
 package interface_adapter.translateText;
 
 /**
- * The State for a note.
- * <p>For this example, a note is simplay a string.</p>
+ * The State for a Translation.
  */
 public class TranslateState {
     private String text = "";
     private String error;
+    private String language;
 
     public String getText() {
         return text;
@@ -14,6 +14,14 @@ public class TranslateState {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public void setError(String errorMessage) {
