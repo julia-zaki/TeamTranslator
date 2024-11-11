@@ -1,7 +1,7 @@
 package use_case.translateText;
 
 import entity.TextTranslator;
-import interface_adapter.translateText.TranslateTextPresenter;
+import interface_adapter.translateText.TranslateTextOutputBoundary;
 
 /**
  * The TranslateText Interactor.
@@ -9,34 +9,35 @@ import interface_adapter.translateText.TranslateTextPresenter;
 public class TranslateTextInteractor implements TranslateTextInputBoundary {
 
     private final TranslateTextDataAccessInterface dataAccessObject;
-    private final TranslateTextPresenter presenter;
+    private final TranslateTextOutputBoundary translateTextOutputBoundary;
     private final TextTranslator textTranslator;
 
     public TranslateTextInteractor(TranslateTextDataAccessInterface translateTextDataAccessInterface,
-                                   TranslateTextPresenter translateTextPresenter,
+                                   TranslateTextOutputBoundary translateTextPresenter,
                                    TextTranslator textTranslator) {
         this.dataAccessObject = translateTextDataAccessInterface;
-        this.presenter = translateTextPresenter;
+        this.translateTextOutputBoundary = translateTextPresenter;
         this.textTranslator = textTranslator;
     }
 
     @Override
-    public void execute(String inputLanguage, String inputText, String outputLanguage) {
+    public void execute(TranslateTextInputData translateTextInputData) {
 
         try {
             if (!dataAccessObject.getInputLanguages().contains(textTranslator.getInputLanguage())) {
-                presenter.prepareFailView("Selected language does not exist in translator.");
+                translateTextOutputBoundary.prepareFailView("Selected language does not exist in translator.");
             }
             else if (!dataAccessObject.getOutputLanguages(textTranslator.getInputLanguage())
                     .contains(textTranslator.getOutputLanguage())) {
-                presenter.prepareFailView("Translated language does not exist in translator.");
+                translateTextOutputBoundary.prepareFailView("Translated language does not exist in translator.");
             }
             else {
-                textTranslator.setInputLanguage(inputLanguage);
-                textTranslator.setOutputLanguage(outputLanguage);
-                textTranslator.setInputText(inputText);
+                textTranslator.setInputLanguage(translateTextInputData.getInputLanguage());
+                textTranslator.setOutputLanguage(translateTextInputData.getOutputLanguage());
+                textTranslator.setInputText(translateTextInputData.getInputText());
                 textTranslator.translate();
-                presenter.prepareSuccessView(textTranslator.getOutputText(), textTranslator.getInputLanguage());
+                translateTextOutputBoundary.prepareSuccessView(textTranslator.getOutputText(),
+                        textTranslator.getInputLanguage());
             }
         }
         catch (DataAccessException ex) {
