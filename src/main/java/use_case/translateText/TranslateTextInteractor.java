@@ -21,7 +21,7 @@ public class TranslateTextInteractor implements TranslateTextInputBoundary {
     }
 
     @Override
-    public void execute() {
+    public void execute(String inputLanguage, String inputText, String outputLanguage) {
 
         try {
             if (!dataAccessObject.getInputLanguages().contains(textTranslator.getInputLanguage())) {
@@ -32,6 +32,9 @@ public class TranslateTextInteractor implements TranslateTextInputBoundary {
                 presenter.prepareFailView("Translated language does not exist in translator.");
             }
             else {
+                textTranslator.setInputLanguage(inputLanguage);
+                textTranslator.setOutputLanguage(outputLanguage);
+                textTranslator.setInputText(inputText);
                 textTranslator.translate();
                 presenter.prepareSuccessView(textTranslator.getOutputText(), textTranslator.getInputLanguage());
             }
