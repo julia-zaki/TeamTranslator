@@ -29,3 +29,13 @@ to text feature to take a picture and translate the sign.
 Potential API: OCR Space
 
 ![ImageToText View](Images/ImageToText%20View.png)
+
+# 3.
+Edan is currently enrolled in a Korean learning course and several course materials are distributed in different
+format of files. He wants those text in the files to be translated directly into his mother language so that he 
+does not have to copy and paste the text from the file into the translator. Therefore, he uses the 
+translate-file feature to translate the materials in an efficient way.
+[Edan’s story]
+Potential API: document translation API
+
+![TranslateFile View](Images/TranslateFile%20View.jpg)
