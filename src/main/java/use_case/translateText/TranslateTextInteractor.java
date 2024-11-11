@@ -1,19 +1,19 @@
 package use_case.translateText;
 
 import entity.TextTranslator;
-import interface_adapter.translateText.TranslateTextOutputBoundary;
+import interface_adapter.translateText.TranslateTextPresenter;
 
 /**
  * The TranslateText Interactor.
  */
-public class TranslateTextInteractor {
+public class TranslateTextInteractor implements TranslateTextInputBoundary {
 
     private final TranslateTextDataAccessInterface dataAccessObject;
-    private final TranslateTextOutputBoundary presenter;
+    private final TranslateTextPresenter presenter;
     private final TextTranslator textTranslator;
 
     public TranslateTextInteractor(TranslateTextDataAccessInterface translateTextDataAccessInterface,
-                                   TranslateTextOutputBoundary translateTextPresenter,
+                                   TranslateTextPresenter translateTextPresenter,
                                    TextTranslator textTranslator) {
         this.dataAccessObject = translateTextDataAccessInterface;
         this.presenter = translateTextPresenter;
@@ -21,7 +21,7 @@ public class TranslateTextInteractor {
     }
 
     @Override
-    public void execute() {
+    public void execute(String inputLanguage, String inputText, String outputLanguage) {
 
         try {
             if (!dataAccessObject.getInputLanguages().contains(textTranslator.getInputLanguage())) {
@@ -32,6 +32,9 @@ public class TranslateTextInteractor {
                 presenter.prepareFailView("Translated language does not exist in translator.");
             }
             else {
+                textTranslator.setInputLanguage(inputLanguage);
+                textTranslator.setOutputLanguage(outputLanguage);
+                textTranslator.setInputText(inputText);
                 textTranslator.translate();
                 presenter.prepareSuccessView(textTranslator.getOutputText(), textTranslator.getInputLanguage());
             }
