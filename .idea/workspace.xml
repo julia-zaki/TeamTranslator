@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b2249b1-be78-4bf5-8843-0d6c09ee185a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Images/TranslateVideo View.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="3b2249b1-be78-4bf5-8843-0d6c09ee185a" name="Changes" comment="add user story 'translate video'">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +38,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "git-widget-placeholder": "karmen.zhu",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/karmen/IdeaProjects/TeamTranslator__/Images",
@@ -87,11 +87,67 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731351667015</updated>
-      <workItem from="1731351667594" duration="1604000" />
+      <workItem from="1731351667594" duration="2476000" />
     </task>
+    <task id="LOCAL-00001" summary="add user story 'translate video'">
+      <option name="closed" value="true" />
+      <created>1731353731247</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1731353731247</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add user story 'translate video'">
+      <option name="closed" value="true" />
+      <created>1731353769644</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731353769644</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add user story 'translate video'">
+      <option name="closed" value="true" />
+      <created>1731353837715</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731353837715</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add user story 'translate video'">
+      <option name="closed" value="true" />
+      <created>1731353942246</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731353942246</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add user story 'translate video'">
+      <option name="closed" value="true" />
+      <created>1731354055843</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1731354055843</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add user story 'translate video'" />
+    <option name="LAST_COMMIT_MESSAGE" value="add user story 'translate video'" />
   </component>
 </project>

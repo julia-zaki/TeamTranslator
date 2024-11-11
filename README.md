@@ -41,7 +41,7 @@ Potential API: document translation API
 ![TranslateFile View](Images/TranslateFile%20View.jpg)
 
 # 4.
-Karmen is taking a history class and needs to watch a documentary in a foreign language.
+Karmen is taking a history class and needs to watch a documentary in a foreign language. 
 To fully understand the documentary, she wants to translate its script into a language she’s comfortable with. 
 Using the "Translate Video" feature, Karmen gains a deeper understanding of the documentary.
 [Karmen Zhu’s User Story]
