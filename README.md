@@ -28,4 +28,4 @@ to text feature to take a picture and translate the sign.
 [Christina Huang’s User Story]
 Potential API: OCR Space
 
-![ImageToText View](Images\ImageToText%20View.png)
+![ImageToText View](Images/ImageToText%20View.png)
