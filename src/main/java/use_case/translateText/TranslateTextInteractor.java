@@ -1,43 +1,39 @@
 package use_case.translateText;
 
 import entity.TextTranslator;
-import interface_adapter.translateText.TranslateTextPresenter;
+import interface_adapter.translateText.TranslateTextOutputBoundary;
 
 /**
  * The TranslateText Interactor.
  */
 public class TranslateTextInteractor {
 
-    private final TranslateTextDataAccessInterface userDataAccessObject;
-    private final TranslateTextPresenter userPresenter;
+    private final TranslateTextDataAccessInterface dataAccessObject;
+    private final TranslateTextOutputBoundary presenter;
     private final TextTranslator textTranslator;
 
-    public TranslateTextInteractor(TranslateTextDataAccessInterface translateTextUserDataAccessInterface,
-                                   TranslateTextPresenter translateTextPresenter,
+    public TranslateTextInteractor(TranslateTextDataAccessInterface translateTextDataAccessInterface,
+                                   TranslateTextOutputBoundary translateTextPresenter,
                                    TextTranslator textTranslator) {
-        this.userDataAccessObject = translateTextUserDataAccessInterface;
-        this.userPresenter = translateTextPresenter;
+        this.dataAccessObject = translateTextDataAccessInterface;
+        this.presenter = translateTextPresenter;
         this.textTranslator = textTranslator;
     }
 
     @Override
     public void execute() {
 
-        final String inputLanguage = textTranslator.getInputLanguage();
-        final String outputLanguage = textTranslator.getOutputLanguage();
-        final String translatedtext = textTranslator.getOutputText();
-
         try {
-            if (!userDataAccessObject.getInputLanguages().contains(inputLanguage)) {
-                userPresenter.prepareFailView("Selected language does not exist in translator.");
+            if (!dataAccessObject.getInputLanguages().contains(textTranslator.getInputLanguage())) {
+                presenter.prepareFailView("Selected language does not exist in translator.");
             }
-            else if (!userDataAccessObject.getOutputLanguages(inputLanguage)
-                    .contains(outputLanguage)) {
-                userPresenter.prepareFailView("Translated language does not exist in translator.");
+            else if (!dataAccessObject.getOutputLanguages(textTranslator.getInputLanguage())
+                    .contains(textTranslator.getOutputLanguage())) {
+                presenter.prepareFailView("Translated language does not exist in translator.");
             }
             else {
                 textTranslator.translate();
-                userPresenter.prepareSuccessView(translatedtext, inputLanguage);
+                presenter.prepareSuccessView(textTranslator.getOutputText(), textTranslator.getInputLanguage());
             }
         }
         catch (DataAccessException ex) {
