@@ -6,9 +6,10 @@ package use_case.translateText;
 public interface TranslateTextOutputBoundary {
     /**
      * Prepares the success view for the TranslateText related Use Cases.
-     * @param message the output data
+     * @param outputText the output data
+     * @param inputLanguage the output data
      */
-    void prepareSuccessView(String message);
+    void prepareSuccessView(String outputText, String inputLanguage);
 
     /**
      * Prepares the failure view for the TranslateText related Use Cases.
