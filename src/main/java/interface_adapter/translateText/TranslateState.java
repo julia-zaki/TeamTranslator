@@ -4,17 +4,26 @@ package interface_adapter.translateText;
  * The State for a Translation.
  */
 public class TranslateState {
-    private String text = "";
+    private String inputText = "";
+    private String outputText = "";
     private String error;
     private String inputLanguage;
     private String outputLanguage;
 
-    public String getText() {
-        return text;
+    public String getInputText() {
+        return inputText;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setInputText(String inputText) {
+        this.inputText = inputText;
+    }
+
+    public String getOutputText() {
+        return outputText;
+    }
+
+    public void setOutputText(String outputText) {
+        this.outputText = outputText;
     }
 
     public String getInputLanguage() {
