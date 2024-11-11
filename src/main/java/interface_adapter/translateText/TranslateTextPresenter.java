@@ -20,7 +20,7 @@ public class TranslateTextPresenter implements TranslateTextOutputBoundary {
      */
     @Override
     public void prepareSuccessView(String outputText, String inputLanguage) {
-        translateTextViewModel.getState().setText(outputText);
+        translateTextViewModel.getState().setOutputText(outputText);
         translateTextViewModel.getState().setInputLanguage(inputLanguage);
         translateTextViewModel.getState().setError(null);
         translateTextViewModel.firePropertyChanged();
