@@ -186,7 +186,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
 
     /**
      * Return all possible input languages available for translation.
-     * @return the set of input languages
+     * @return the list of input languages
      */
     @Override
     public List<String> getInputLanguages() throws DataAccessException {
@@ -198,7 +198,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
      * If the input language is null, return the list of all possible output languages.
      *
      * @param inputLanguage the input language
-     * @return the set of output languages
+     * @return the list of output languages
      */
     @Override
     public List<String> getOutputLanguages(String inputLanguage) throws DataAccessException {
