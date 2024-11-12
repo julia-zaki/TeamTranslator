@@ -35,6 +35,11 @@ public class TranslateTextInteractor implements TranslateTextInputBoundary {
                     .contains(textTranslator.getOutputLanguage())) {
                 translateTextOutputBoundary.prepareFailView("Translated language does not exist in translator.");
             }
+
+            else if ("".equals(textTranslator.getInputText())) {
+                translateTextOutputBoundary.prepareFailView("Input text is empty.");
+            }
+
             else {
 
                 textTranslator.translate();
