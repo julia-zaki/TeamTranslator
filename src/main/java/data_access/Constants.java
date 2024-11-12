@@ -6,4 +6,5 @@ package data_access;
 public class Constants {
     public static final String LANGUAGE_KEY = "language";
     public static final String TEXT_KEY = "text";
+    public static final String DETECT = "Detect Language";
 }

@@ -1,12 +1,12 @@
-package interface_adapter.TranslateText;
+package interface_adapter.translateText;
 
-import use_case.note.TranslateTextInputBoundary;
-import use_case.note.TranslateTextInputData;
+import use_case.translateText.TranslateTextInputBoundary;
+import use_case.translateText.TranslateTextInputData;
 
 /**
  * The controller for the TranslateText Use Case.
  */
-public class TranslateTextController implements TranslateTextInputBoundary {
+public class TranslateTextController {
 
     private final TranslateTextInputBoundary translateTextUseCaseInteractor;
 

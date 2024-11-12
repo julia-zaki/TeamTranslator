@@ -1,20 +1,19 @@
 package data_access;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import com.deepl.api.DeepLException;
+import com.deepl.api.Language;
 import com.deepl.api.TextResult;
 import com.deepl.api.Translator;
 import use_case.translateText.DataAccessException;
@@ -29,12 +28,16 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
     private static final String AUTH_KEY = "a3c3d2b6-e5e2-42ce-aac7-aba5f20a0571:fx";
     private final Map<String, String> codeToLanguage = new HashMap<>();
     private final Map<String, String> languageToCode = new HashMap<>();
-    private final Map<String, Set<String>> inputLanguageToOutputLanguages = new HashMap<>();
+    private List<String> inputLanguages = new ArrayList<>();
+    private List<String> outputLanguages = new ArrayList<>();
+    private final Translator translator;
 
     public DBTranslateTextDataAccessObject() {
         try {
+            translator = new Translator(AUTH_KEY);
             getCodeLanguageMaps();
-            getLanguagePairs();
+            getSourceLanguages();
+            getTargetLanguages();
         }
         catch (DataAccessException ex) {
             throw new RuntimeException(ex);
@@ -54,11 +57,9 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
     @Override
     public Map<String, String> translateText(String text, String inputLanguage, String outputLanguage)
             throws DataAccessException {
-        final Translator translator = new Translator(AUTH_KEY);
-        final TextResult translationResult;
         final Map<String, String> result = new HashMap<>();
+        final TextResult translationResult;
         try {
-
             translationResult = translator.translateText(text, languageToCode(inputLanguage),
                     languageToCode(outputLanguage));
         }
@@ -66,7 +67,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
             throw new DataAccessException(ex.getMessage());
         }
 
-        if ("Detect Language".equalsIgnoreCase(inputLanguage)) {
+        if (Constants.DETECT.equalsIgnoreCase(inputLanguage)) {
             result.put(Constants.LANGUAGE_KEY, codeToLanguage(translationResult.getDetectedSourceLanguage()
                     .toUpperCase()));
         }
@@ -78,51 +79,6 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
         result.put(Constants.TEXT_KEY, translationResult.getText());
         return result;
 
-    }
-
-    /**
-     * Get all possible output languages for translation for each possible input language.
-     * @throws DataAccessException if the languages could not be retrieved for any reason
-     */
-    private void getLanguagePairs() throws DataAccessException {
-        final String url = "https://api-free.deepl.com/v2/glossary-language-pairs";
-        final HttpClient client;
-
-        // Get the http client
-        try {
-            client = HttpClient.newHttpClient();
-            final HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .header("Authorization", "DeepL-Auth-Key " + AUTH_KEY)
-                    .GET()
-                    .build();
-
-            final HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            final JSONObject json = new JSONObject(response.body());
-            final JSONArray languages = (JSONArray) json.get("supported_languages");
-
-            // Format the JSONArray as a Map
-            for (int i = 0; i < languages.length(); i++) {
-                final JSONObject language = languages.getJSONObject(i);
-                final String inputLanguage = language.getString("source_lang").toUpperCase();
-                final String outputLanguage = language.getString("target_lang").toUpperCase();
-
-                if (!inputLanguageToOutputLanguages.containsKey(inputLanguage)) {
-                    final Set<String> set = new HashSet<>();
-                    set.add(outputLanguage);
-                    inputLanguageToOutputLanguages.put(inputLanguage, set);
-                }
-
-                else {
-                    final Set<String> set = inputLanguageToOutputLanguages.get(inputLanguage);
-                    set.add(outputLanguage);
-                }
-            }
-
-        }
-        catch (UncheckedIOException | InterruptedException | IOException | IllegalArgumentException ex) {
-            throw new DataAccessException(ex.getMessage());
-        }
     }
 
     private void getCodeLanguageMaps() throws DataAccessException {
@@ -154,6 +110,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
         }
 
     }
+
     /**
      * Convert from language code to language name.
      *
@@ -177,7 +134,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
      */
     private String languageToCode(String language) {
         final String result;
-        if ("Detect Language".equals(language)) {
+        if (Constants.DETECT.equals(language)) {
             result = null;
         }
 
@@ -187,13 +144,53 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
         return result;
     }
 
+    private void getSourceLanguages() throws DataAccessException {
+        final List<Language> sourceLanguages;
+        try {
+            sourceLanguages = translator.getSourceLanguages();
+        }
+        catch (DeepLException | InterruptedException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+
+        final String[] result = new String[sourceLanguages.size() + 1];
+        result[0] = Constants.DETECT;
+        for (int i = 0; i < sourceLanguages.size(); i++) {
+            result[i + 1] = sourceLanguages.get(i).getName();
+            codeToLanguage.put(sourceLanguages.get(i).getCode(), sourceLanguages.get(i).getName());
+            languageToCode.put(sourceLanguages.get(i).getName(), sourceLanguages.get(i).getCode());
+        }
+
+        inputLanguages = List.of(result);
+    }
+
+    private void getTargetLanguages() throws DataAccessException {
+        final List<Language> targetLanguages;
+        try {
+            targetLanguages = translator.getTargetLanguages();
+        }
+        catch (DeepLException | InterruptedException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+
+        final List<String> result = new ArrayList<>();
+        for (Language targetLanguage : targetLanguages) {
+            result.add(targetLanguage.getName());
+
+            codeToLanguage.put(targetLanguage.getCode(), targetLanguage.getName());
+            languageToCode.put(targetLanguage.getName(), targetLanguage.getCode());
+        }
+
+        outputLanguages = result;
+    }
+
     /**
      * Return all possible input languages available for translation.
      * @return the set of input languages
      */
     @Override
-    public Set<String> getInputLanguages() {
-        return inputLanguageToOutputLanguages.keySet();
+    public List<String> getInputLanguages() throws DataAccessException {
+        return inputLanguages;
     }
 
     /**
@@ -204,20 +201,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
      * @return the set of output languages
      */
     @Override
-    public Set<String> getOutputLanguages(String inputLanguage) {
-        final Set<String> codes;
-        final Set<String> result = new HashSet<>();
-        if (inputLanguage != null) {
-            codes = inputLanguageToOutputLanguages.get(inputLanguage);
-        }
-        else {
-            codes = inputLanguageToOutputLanguages.keySet();
-        }
-
-        // Convert codes to language names
-        for (String code: codes) {
-            result.add(codeToLanguage.get(code));
-        }
-        return result;
+    public List<String> getOutputLanguages(String inputLanguage) throws DataAccessException {
+        return outputLanguages;
     }
 }

@@ -18,11 +18,7 @@ public class TextTranslator {
     private String outputLanguage;
     private String outputText;
 
-    public TextTranslator(String inputText, String inputLanguage, String outputLanguage) {
-
-        this.inputLanguage = inputLanguage;
-        this.inputText = inputText;
-        this.outputLanguage = outputLanguage;
+    public TextTranslator() {
 
     }
 
