@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Set;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -33,7 +33,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private final JTextArea translateInputField = new JTextArea();
     private final JTextArea translateOutputField = new JTextArea();
     private final TranslateTextDataAccessInterface translateTextDai = new DBTranslateTextDataAccessObject();
-    private final Set<String> inputLanguages;
+    private final List<String> inputLanguages;
 
     {
         try {
@@ -46,7 +46,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     }
 
     private final JComboBox inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
-    private final Set<String> outputLanguages;
+    private final List<String> outputLanguages;
 
     private final JComboBox outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
 
@@ -58,6 +58,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
 
     public TranslateTextView(TranslateTextViewModel translateTextViewModel) {
 
+        translateOutputField.setEditable(false);
         translation.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.translateTextViewModel = translateTextViewModel;
         this.translateTextViewModel.addPropertyChangeListener(this);
@@ -71,8 +72,9 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
         textButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(textButton)) {
-                        translateTextController.execute(translateInputField.getText());
-
+                        translateTextController.execute(inputLanguageComboBox.getSelectedItem().toString(),
+                                translateInputField.getText(), (String) outputLanguageComboBox.getSelectedItem()
+                                        .toString());
                     }
                 }
         );
@@ -106,7 +108,9 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     }
 
     private void setFields(TranslateState state) {
-        translation.setText(state.getText());
+
+        translateOutputField.setText(state.getOutputText());
+        inputLanguageComboBox.setSelectedItem(state.getInputLanguage());
     }
 
     public void setTranslateTextController(TranslateTextController controller) {

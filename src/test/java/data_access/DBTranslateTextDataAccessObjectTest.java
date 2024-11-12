@@ -3,6 +3,7 @@ package data_access;
 import org.junit.Test;
 import use_case.translateText.DataAccessException;
 
+import java.util.List;
 import java.util.Map;
 
 public class DBTranslateTextDataAccessObjectTest {
@@ -14,4 +15,5 @@ public class DBTranslateTextDataAccessObjectTest {
         assert translationResult.get(Constants.LANGUAGE_KEY).equals("English");
         assert translationResult.get(Constants.TEXT_KEY).equals("Bonjour le monde");
     }
+
 }
