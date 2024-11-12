@@ -1,6 +1,7 @@
 package interface_adapter.translateText;
 
 import use_case.translateText.TranslateTextOutputBoundary;
+import use_case.translateText.TranslateTextOutputData;
 
 /**
  * The presenter for the translation program.
@@ -14,14 +15,14 @@ public class TranslateTextPresenter implements TranslateTextOutputBoundary {
     }
 
     /**
-     * Prepares the success view for the Translate related Use Cases.
+     * Prepares the success  view for the Translate related Use Cases.
      *
-     * @param translatedText the output data
+     * @param translateTextOutputData the output data
      */
     @Override
-    public void prepareSuccessView(String outputText, String inputLanguage) {
-        translateTextViewModel.getState().setOutputText(outputText);
-        translateTextViewModel.getState().setInputLanguage(inputLanguage);
+    public void prepareSuccessView(TranslateTextOutputData translateTextOutputData) {
+        translateTextViewModel.getState().setOutputText(translateTextOutputData.getOutputText());
+        translateTextViewModel.getState().setInputLanguage(translateTextOutputData.getInputLanguage());
         translateTextViewModel.getState().setError(null);
         translateTextViewModel.firePropertyChanged();
 
@@ -38,3 +39,4 @@ public class TranslateTextPresenter implements TranslateTextOutputBoundary {
         translateTextViewModel.firePropertyChanged();
     }
 }
+

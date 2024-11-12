@@ -1,19 +1,18 @@
 package use_case.translateText;
 
 import entity.TextTranslator;
-import java.util.List;
 
 /**
- * The TranslateText Interactor.
+ * The TranslateText  Interactor.
  */
 public class TranslateTextInteractor implements TranslateTextInputBoundary {
 
     private final TranslateTextDataAccessInterface dataAccessObject;
-    private final TranslateTextOutputBoundary translateTextOutputBoundary;
+    private final use_case.translateText.TranslateTextOutputBoundary translateTextOutputBoundary;
     private final TextTranslator textTranslator;
 
     public TranslateTextInteractor(TranslateTextDataAccessInterface translateTextDataAccessInterface,
-                                   TranslateTextOutputBoundary translateTextPresenter,
+                                   use_case.translateText.TranslateTextOutputBoundary translateTextPresenter,
                                    TextTranslator textTranslator) {
         this.dataAccessObject = translateTextDataAccessInterface;
         this.translateTextOutputBoundary = translateTextPresenter;
@@ -43,8 +42,8 @@ public class TranslateTextInteractor implements TranslateTextInputBoundary {
             else {
 
                 textTranslator.translate();
-                translateTextOutputBoundary.prepareSuccessView(textTranslator.getOutputText(),
-                        textTranslator.getInputLanguage());
+                final TranslateTextOutputData translateTextOutputData = new TranslateTextOutputData(textTranslator.getOutputText(), textTranslator.getInputLanguage());
+                translateTextOutputBoundary.prepareSuccessView(translateTextOutputData);
             }
         }
         catch (DataAccessException ex) {
