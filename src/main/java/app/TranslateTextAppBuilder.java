@@ -62,7 +62,7 @@ public class TranslateTextAppBuilder {
      */
     public TranslateTextAppBuilder addTranslateTextView() {
         translateTextViewModel = new TranslateTextViewModel();
-        translateTextView = new TranslateTextView(translateTextViewModel);
+        translateTextView = new TranslateTextView(translateTextViewModel, translateTextDAO);
         return this;
     }
 

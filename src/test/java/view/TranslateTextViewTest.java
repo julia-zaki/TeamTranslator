@@ -6,6 +6,7 @@ import interface_adapter.note.NoteViewModel;
 import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextPresenter;
 import interface_adapter.translateText.TranslateTextViewModel;
+import use_case.translateText.TranslateTextDataAccessInterface;
 import use_case.translateText.TranslateTextInteractor;
 
 import javax.swing.*;
@@ -13,9 +14,10 @@ import javax.swing.*;
 public class TranslateTextViewTest {
     public static void main(String[] args) {
         TranslateTextViewModel model = new TranslateTextViewModel();
-        TranslateTextView view = new TranslateTextView(model);
+        TranslateTextDataAccessInterface dataAccess = new DBTranslateTextDataAccessObject();
+        TranslateTextView view = new TranslateTextView(model, dataAccess);
         TranslateTextController controller = new TranslateTextController(new TranslateTextInteractor(
-                new DBTranslateTextDataAccessObject(), new TranslateTextPresenter(model),
+                dataAccess, new TranslateTextPresenter(model),
                 new TextTranslator()));
         view.setTranslateTextController(controller);
         final JFrame frame = new JFrame();
