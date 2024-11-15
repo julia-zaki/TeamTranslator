@@ -50,3 +50,12 @@ Using the "Translate Video" feature, Karmen gains a deeper understanding of the 
 Potential API: YouTube
 
 ![TranslateVideo View.jpg](Images/TranslateVideo%20View.jpg)
+
+# 5.
+Roy is studying French in order to prepare for his French proficiency test.
+However, while studying the subject, he came across some words or sentences he does not know how to pronounce.
+Using the speaker button located at the bottom right side of text boxes, Roy can listen to the inputted pronounciation.
+[Roy Son's User Story]
+Potential API: Google Translate
+
+![TextToSpeech.jpg](Images/TextToSpeech.jpg)
