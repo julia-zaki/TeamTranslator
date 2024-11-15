@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import data_access.DBTranslateTextDataAccessObject;
 import interface_adapter.translateText.TranslateState;
 import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextViewModel;
@@ -28,27 +27,13 @@ import use_case.translateText.TranslateTextDataAccessInterface;
 public class TranslateTextView extends JPanel implements ActionListener, PropertyChangeListener {
 
     private final TranslateTextViewModel translateTextViewModel;
-
     private final JLabel translation = new JLabel("Translation");
     private final JTextArea translateInputField = new JTextArea();
     private final JTextArea translateOutputField = new JTextArea();
-    private final TranslateTextDataAccessInterface translateTextDai = new DBTranslateTextDataAccessObject();
     private final List<String> inputLanguages;
-
-    {
-        try {
-            inputLanguages = translateTextDai.getInputLanguages();
-            outputLanguages = translateTextDai.getOutputLanguages(null);
-        }
-        catch (DataAccessException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private final JComboBox inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
+    private final JComboBox inputLanguageComboBox;
     private final List<String> outputLanguages;
-
-    private final JComboBox outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
+    private final JComboBox outputLanguageComboBox;
 
     private final JButton textButton = new JButton("Translate Text");
     private final JButton videoButton = new JButton("Translate Video");
@@ -56,12 +41,24 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private final JButton vocabButton = new JButton("Vocabulary");
     private TranslateTextController translateTextController;
 
-    public TranslateTextView(TranslateTextViewModel translateTextViewModel) {
+    public TranslateTextView(TranslateTextViewModel translateTextViewModel,
+                             TranslateTextDataAccessInterface translateTextDataAccess) {
 
         translateOutputField.setEditable(false);
         translation.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.translateTextViewModel = translateTextViewModel;
         this.translateTextViewModel.addPropertyChangeListener(this);
+
+        try {
+            inputLanguages = translateTextDataAccess.getInputLanguages();
+            outputLanguages = translateTextDataAccess.getOutputLanguages(null);
+        }
+        catch (DataAccessException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
+        outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
 
         final JPanel buttons = new JPanel();
         buttons.add(textButton);
