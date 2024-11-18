@@ -40,10 +40,16 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private final JButton videoButton = new JButton("Translate Video");
     private final JButton fileButton = new JButton("Translate File");
     private final JButton vocabButton = new JButton("Vocabulary");
+    private final JButton imageButton = new JButton("Image Upload");
     private TranslateTextController translateTextController;
 
     public TranslateTextView(TranslateTextViewModel translateTextViewModel,
                              TranslateTextDataAccessInterface translateTextDataAccess) {
+
+        translateInputField.setLineWrap(true);
+        translateOutputField.setLineWrap(true);
+        translateInputField.setWrapStyleWord(true);
+        translateOutputField.setWrapStyleWord(true);
 
         translateOutputField.setEditable(false);
         translation.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -72,12 +78,15 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
         outputPanel.setPreferredSize(new Dimension(300, 300));
 
         inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
+        inputLanguageComboBox.setPreferredSize(new Dimension(300, 25));
         outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
+        outputLanguageComboBox.setPreferredSize(new Dimension(300, 25));
 
         final JPanel buttons = new JPanel();
         buttons.add(textButton);
         buttons.add(videoButton);
         buttons.add(fileButton);
+        buttons.add(imageButton);
         buttons.add(vocabButton);
 
         textButton.addActionListener(
@@ -133,4 +142,3 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
         this.translateTextController = controller;
     }
 }
-
