@@ -16,8 +16,8 @@ import view.TranslateTextView;
  * Builder for the Translator Application.
  */
 public class TranslateTextAppBuilder {
-    public static final int HEIGHT = 300;
-    public static final int WIDTH = 400;
+    public static final int HEIGHT = 500;
+    public static final int WIDTH = 800;
     private TranslateTextDataAccessInterface translateTextDAO;
     private TranslateTextViewModel translateTextViewModel = new TranslateTextViewModel();
     private TranslateTextView translateTextView;
