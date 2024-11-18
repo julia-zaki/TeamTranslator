@@ -1,12 +1,13 @@
 package view;
 
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -57,6 +58,19 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
             throw new RuntimeException(ex);
         }
 
+        final JPanel inputPanel = new JPanel();
+        final JPanel outputPanel = new JPanel();
+
+        inputPanel.setBorder(BorderFactory.createTitledBorder("Input"));
+        outputPanel.setBorder(BorderFactory.createTitledBorder("Output"));
+
+        final BoxLayout boxLayout = new BoxLayout(inputPanel, BoxLayout.Y_AXIS);
+        final BoxLayout boxLayout2 = new BoxLayout(outputPanel, BoxLayout.Y_AXIS);
+        inputPanel.setLayout(boxLayout);
+        outputPanel.setLayout(boxLayout2);
+        inputPanel.setPreferredSize(new Dimension(300, 300));
+        outputPanel.setPreferredSize(new Dimension(300, 300));
+
         inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
         outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
 
@@ -76,13 +90,18 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
                 }
         );
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        inputLanguageComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+        inputPanel.add(inputLanguageComboBox);
+        inputPanel.add(translateInputField);
 
-        this.add(translation);
-        this.add(inputLanguageComboBox);
-        this.add(outputLanguageComboBox);
-        this.add(translateInputField);
-        this.add(translateOutputField);
+        outputLanguageComboBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        outputPanel.add(outputLanguageComboBox);
+        outputPanel.add(translateOutputField);
+
+        this.setLayout(new FlowLayout());
+
+        this.add(inputPanel);
+        this.add(outputPanel);
         this.add(buttons);
     }
 
