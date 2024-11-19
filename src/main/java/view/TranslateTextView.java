@@ -7,15 +7,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+import interface_adapter.imageUpload.ImageUploadController;
 import interface_adapter.translateText.TranslateState;
 import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextViewModel;
@@ -35,6 +30,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private final JComboBox inputLanguageComboBox;
     private final List<String> outputLanguages;
     private final JComboBox outputLanguageComboBox;
+    private final ImageIcon image = new ImageIcon();
 
     private final JButton textButton = new JButton("Translate Text");
     private final JButton videoButton = new JButton("Translate Video");
@@ -42,6 +38,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private final JButton vocabButton = new JButton("Vocabulary");
     private final JButton imageButton = new JButton("Image Upload");
     private TranslateTextController translateTextController;
+    private ImageUploadController imageUploadController;
 
     public TranslateTextView(TranslateTextViewModel translateTextViewModel,
                              TranslateTextDataAccessInterface translateTextDataAccess) {
@@ -99,6 +96,21 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
                 }
         );
 
+        imageButton.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(imageButton)) {
+                        final JFileChooser fileChooser = new JFileChooser();
+                        final FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Image Files",
+                                "png", "jpg");
+                        fileChooser.setFileFilter(fileFilter);
+                        final int result = fileChooser.showOpenDialog(this);
+                        if (result == JFileChooser.APPROVE_OPTION) {
+                            imageUploadController.execute(fileChooser.getSelectedFile());
+                        }
+                    }
+                }
+        );
+
         inputLanguageComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         inputPanel.add(inputLanguageComboBox);
         inputPanel.add(translateInputField);
@@ -136,9 +148,15 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
 
         translateOutputField.setText(state.getOutputText());
         inputLanguageComboBox.setSelectedItem(state.getInputLanguage());
+        translateInputField.setText(state.getInputText());
+
     }
 
-    public void setTranslateTextController(TranslateTextController controller) {
-        this.translateTextController = controller;
+    public void setTranslateTextController(TranslateTextController translateTextcontroller) {
+        this.translateTextController = translateTextcontroller;
+    }
+
+    public void setImageUploadController(ImageUploadController imageUploadController) {
+        this.imageUploadController = imageUploadController;
     }
 }

@@ -13,12 +13,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import use_case.imageUpload.ImageUploadDataAccessInterface;
 import use_case.translateText.DataAccessException;
 
 /**
  * The DAO for recognizing text from an image using OCR Space API.
  */
-public class DBImageUploadDataAccessObject {
+public class DBImageUploadDataAccessObject implements ImageUploadDataAccessInterface {
 
     /**
      * Extracts text from an image.
@@ -27,7 +28,7 @@ public class DBImageUploadDataAccessObject {
      * @return a String of text from the image
      * @throws DataAccessException if text could not be extracted for any reason
      */
-    public static String getText(File imageFile) throws DataAccessException {
+    public String getText(File imageFile) throws DataAccessException {
 
         final String apiKey = "c0885d222488957";
         final String result;
