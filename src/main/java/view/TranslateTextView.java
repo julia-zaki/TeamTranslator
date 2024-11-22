@@ -10,7 +10,17 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import interface_adapter.imageUpload.ImageUploadController;
@@ -33,7 +43,8 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private final JComboBox inputLanguageComboBox;
     private final List<String> outputLanguages;
     private final JComboBox outputLanguageComboBox;
-    private final ImageIcon image = new ImageIcon();
+    private final JScrollPane inputScrollPane = new JScrollPane(translateInputField);
+    private final JScrollPane outputScrollPane = new JScrollPane(translateOutputField);
 
     private final JButton textButton = new JButton("Translate Text");
     private final JButton videoButton = new JButton("Translate Video");
@@ -79,6 +90,8 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
 
         inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
         inputLanguageComboBox.setPreferredSize(new Dimension(300, 25));
+        inputScrollPane.setPreferredSize(new Dimension(300, 275));
+        outputScrollPane.setPreferredSize(new Dimension(300, 275));
         outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
         outputLanguageComboBox.setPreferredSize(new Dimension(300, 25));
 
@@ -120,11 +133,11 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
 
         inputLanguageComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         inputPanel.add(inputLanguageComboBox);
-        inputPanel.add(translateInputField);
+        inputPanel.add(inputScrollPane);
 
         outputLanguageComboBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
         outputPanel.add(outputLanguageComboBox);
-        outputPanel.add(translateOutputField);
+        outputPanel.add(outputScrollPane);
 
         this.setLayout(new FlowLayout());
 
