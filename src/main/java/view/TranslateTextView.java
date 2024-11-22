@@ -1,21 +1,29 @@
 package view;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+import interface_adapter.imageUpload.ImageUploadController;
 import interface_adapter.translateText.TranslateState;
 import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextViewModel;
@@ -35,6 +43,8 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private final JComboBox inputLanguageComboBox;
     private final List<String> outputLanguages;
     private final JComboBox outputLanguageComboBox;
+    private final JScrollPane inputScrollPane = new JScrollPane(translateInputField);
+    private final JScrollPane outputScrollPane = new JScrollPane(translateOutputField);
 
     private final JButton textButton = new JButton("Translate Text");
     private final JButton videoButton = new JButton("Translate Video");
@@ -42,6 +52,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private final JButton vocabButton = new JButton("Vocabulary");
     private final JButton imageButton = new JButton("Image Upload");
     private TranslateTextController translateTextController;
+    private ImageUploadController imageUploadController;
 
     public TranslateTextView(TranslateTextViewModel translateTextViewModel,
                              TranslateTextDataAccessInterface translateTextDataAccess) {
@@ -79,6 +90,8 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
 
         inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
         inputLanguageComboBox.setPreferredSize(new Dimension(300, 25));
+        inputScrollPane.setPreferredSize(new Dimension(300, 275));
+        outputScrollPane.setPreferredSize(new Dimension(300, 275));
         outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
         outputLanguageComboBox.setPreferredSize(new Dimension(300, 25));
 
@@ -99,13 +112,32 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
                 }
         );
 
+        imageButton.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(imageButton)) {
+                        final JFileChooser fileChooser = new JFileChooser();
+                        final FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Image Files",
+                                "png", "jpg", "gif", "pdf", "tif", "bmp");
+                        fileChooser.setFileFilter(fileFilter);
+                        final int result = fileChooser.showOpenDialog(this);
+                        if (result == JFileChooser.APPROVE_OPTION) {
+                            final File imageFile = fileChooser.getSelectedFile();
+                            imageUploadController.execute(imageFile);
+                            JOptionPane.showMessageDialog(this,
+                                    "", "Uploaded Image:",
+                                    JOptionPane.PLAIN_MESSAGE, new ImageIcon(imageFile.getAbsolutePath()));
+                        }
+                    }
+                }
+        );
+
         inputLanguageComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         inputPanel.add(inputLanguageComboBox);
-        inputPanel.add(translateInputField);
+        inputPanel.add(inputScrollPane);
 
         outputLanguageComboBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
         outputPanel.add(outputLanguageComboBox);
-        outputPanel.add(translateOutputField);
+        outputPanel.add(outputScrollPane);
 
         this.setLayout(new FlowLayout());
 
@@ -136,9 +168,15 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
 
         translateOutputField.setText(state.getOutputText());
         inputLanguageComboBox.setSelectedItem(state.getInputLanguage());
+        translateInputField.setText(state.getInputText());
+
     }
 
-    public void setTranslateTextController(TranslateTextController controller) {
-        this.translateTextController = controller;
+    public void setTranslateTextController(TranslateTextController translateTextcontroller) {
+        this.translateTextController = translateTextcontroller;
+    }
+
+    public void setImageUploadController(ImageUploadController imageUploadController) {
+        this.imageUploadController = imageUploadController;
     }
 }

@@ -1,10 +1,7 @@
 package use_case.translateText;
 
-import com.deepl.api.DeepLException;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Interface for the translateTextDAO. It consists of methods for
@@ -26,7 +23,7 @@ public interface TranslateTextDataAccessInterface {
 
     /**
      * Return all possible input languages available for translation.
-     * @return the set of input languages
+     * @return the list of input languages
      * @throws DataAccessException if the input languages could not be retrieved for any reason
      */
     List<String> getInputLanguages() throws DataAccessException;
@@ -35,7 +32,7 @@ public interface TranslateTextDataAccessInterface {
      * Return all possible output languages for the given input language.
      * If the input language is null, return the list of all possible output languages.
      * @param inputLanguage the input language
-     * @return the set of output languages
+     * @return the list of output languages
      * @throws DataAccessException if the output languages could not be retrieved for any reason
      */
     List<String> getOutputLanguages(String inputLanguage) throws DataAccessException;

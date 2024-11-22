@@ -28,9 +28,7 @@ Christina is studying abroad in Japan and sees a sign at a subway. She is not ve
 She is in a rush and cannot easily type in the characters into her translation app so she uses the convert image
 to text feature to take a picture and translate the sign.
 [Christina Huang’s User Story]
-Potential API: OCR Space
-
-![ImageToText View](Images/ImageToText%20View.png)
+API: OCR Space
 
 # 3.
 Edan is currently enrolled in a Korean learning course and several course materials are distributed in different

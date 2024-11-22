@@ -42,12 +42,15 @@ public class TranslateTextInteractor implements TranslateTextInputBoundary {
             else {
 
                 textTranslator.translate();
-                final TranslateTextOutputData translateTextOutputData = new TranslateTextOutputData(textTranslator.getOutputText(), textTranslator.getInputLanguage());
+                final TranslateTextOutputData translateTextOutputData = new TranslateTextOutputData(
+                        textTranslator.getInputText(),
+                        textTranslator.getOutputText(),
+                        textTranslator.getInputLanguage());
                 translateTextOutputBoundary.prepareSuccessView(translateTextOutputData);
             }
         }
         catch (DataAccessException ex) {
-            throw new RuntimeException(ex);
+            translateTextOutputBoundary.prepareFailView(ex.getMessage());
         }
     }
 }
