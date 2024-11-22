@@ -13,6 +13,7 @@ public interface ImageUploadOutputBoundary {
     /**
      * Prepares the failure view for the ImageUpload related Use Cases.
      * @param errorMessage the explanation of the failure
+     * @param inputText the input text prior to ImageUpload Use Case
      */
-    void prepareFailView(String errorMessage);
+    void prepareFailView(String errorMessage, String inputText);
 }

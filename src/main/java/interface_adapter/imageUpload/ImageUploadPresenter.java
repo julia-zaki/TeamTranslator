@@ -33,9 +33,11 @@ public class ImageUploadPresenter implements ImageUploadOutputBoundary {
      * Prepares the failure view for the Image Upload related Use Cases.
      *
      * @param errorMessage the explanation of the failure
+     * @param inputText the input text prior to ImageUpload Use Case
      */
     @Override
-    public void prepareFailView(String errorMessage) {
+    public void prepareFailView(String errorMessage, String inputText) {
+        imageUploadViewModel.getState().setInputText(inputText);
         imageUploadViewModel.getState().setError(errorMessage);
         imageUploadViewModel.firePropertyChanged();
     }
