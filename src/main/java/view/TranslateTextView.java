@@ -7,18 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import interface_adapter.imageUpload.ImageUploadController;
@@ -112,11 +104,15 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
                     if (evt.getSource().equals(imageButton)) {
                         final JFileChooser fileChooser = new JFileChooser();
                         final FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Image Files",
-                                "png", "jpg");
+                                "png", "jpg", "gif", "pdf", "tif", "bmp");
                         fileChooser.setFileFilter(fileFilter);
                         final int result = fileChooser.showOpenDialog(this);
                         if (result == JFileChooser.APPROVE_OPTION) {
-                            imageUploadController.execute(fileChooser.getSelectedFile());
+                            final File imageFile = fileChooser.getSelectedFile();
+                            imageUploadController.execute(imageFile);
+                            JOptionPane.showMessageDialog(this,
+                                    "", "Uploaded Image:",
+                                    JOptionPane.PLAIN_MESSAGE, new ImageIcon(imageFile.getAbsolutePath()));
                         }
                     }
                 }

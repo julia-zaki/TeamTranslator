@@ -24,14 +24,22 @@ public class ImageUploadInteractor implements ImageUploadInputBoundary {
     @Override
     public void execute(ImageUploadInputData imageUploadInputData) {
 
-        try {
-            final String inputText = imageUploadDataAccess.getText(imageUploadInputData.getImageFile());
-            final ImageUploadOutputData outputData = new ImageUploadOutputData(inputText);
-            imageUploadOutputBoundary.prepareSuccessView(outputData);
+        // Check if file exists in user's local directory
+        if (!imageUploadInputData.getImageFile().exists()) {
+            imageUploadOutputBoundary.prepareFailView("The file does not exist.");
         }
 
-        catch (DataAccessException ex) {
-            imageUploadOutputBoundary.prepareFailView(ex.getMessage());
+        // Otherwise, use the DAO's getText method to retrieve the input image file's text
+        else {
+            try {
+                final String inputText = imageUploadDataAccess.getText(imageUploadInputData.getImageFile());
+                final ImageUploadOutputData outputData = new ImageUploadOutputData(inputText);
+                imageUploadOutputBoundary.prepareSuccessView(outputData);
+            }
+
+            catch (DataAccessException ex) {
+                imageUploadOutputBoundary.prepareFailView(ex.getMessage());
+            }
         }
     }
 }
