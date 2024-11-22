@@ -89,4 +89,39 @@ public class ImageUploadInteractorTest {
         imageUploadInteractor.execute(imageUploadInputData);
 
     }
+
+    @Test
+    public void failureNoTextInImageTest() {
+
+        // Mock DAO's getText method to return the empty string
+        imageUploadDAO = new InMemoryImageUploadDataAccessObject() {
+            @Override
+            public String getText(File imageFile) {
+                return "";
+            }
+        };
+
+        ImageUploadOutputBoundary imageUploadOB = new ImageUploadOutputBoundary() {
+
+            /**
+             * Prepares the success view for the ImageUpload related Use Cases.
+             *
+             * @param imageUploadOutputData the output data
+             */
+            @Override
+            public void prepareSuccessView(ImageUploadOutputData imageUploadOutputData) {
+                fail("Use case success is unexpected");
+            }
+
+            /**
+             * Prepares the failure view for the ImageUpload related Use Cases.
+             *
+             * @param errorMessage the explanation of the failure
+             */
+            @Override
+            public void prepareFailView(String errorMessage) {
+                assertEquals("No text in file found.", errorMessage);
+            }
+        };
+    }
 }

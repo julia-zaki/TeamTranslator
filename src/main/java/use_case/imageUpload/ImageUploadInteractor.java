@@ -34,12 +34,22 @@ public class ImageUploadInteractor implements ImageUploadInputBoundary {
             try {
                 final String inputText = imageUploadDataAccess.getText(imageUploadInputData.getImageFile());
                 final ImageUploadOutputData outputData = new ImageUploadOutputData(inputText);
-                imageUploadOutputBoundary.prepareSuccessView(outputData);
+
+                // If no text was found in image, prepare fail view
+                if ("".equals(inputText)) {
+                    imageUploadOutputBoundary.prepareFailView("No text detected from image.");
+                }
+
+                // Else, prepare success view
+                else {
+                    imageUploadOutputBoundary.prepareSuccessView(outputData);
+                }
             }
 
             catch (DataAccessException ex) {
                 imageUploadOutputBoundary.prepareFailView(ex.getMessage());
             }
         }
+
     }
 }
