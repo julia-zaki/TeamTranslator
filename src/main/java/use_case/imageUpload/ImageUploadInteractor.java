@@ -44,7 +44,7 @@ public class ImageUploadInteractor implements ImageUploadInputBoundary {
 
                 // Else, prepare success view
                 else {
-                    imageUploadOutputBoundary.prepareSuccessView(outputData);
+                    imageUploadOutputBoundary.prepareSuccessView(outputData, imageUploadInputData.getInputText());
                 }
             }
 
