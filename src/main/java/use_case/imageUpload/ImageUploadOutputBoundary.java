@@ -7,9 +7,8 @@ public interface ImageUploadOutputBoundary {
     /**
      * Prepares the success view for the ImageUpload related Use Cases.
      * @param imageUploadOutputData the output data
-     * @param inputText the input text prior to ImageUpload Use Case
      */
-    void prepareSuccessView(ImageUploadOutputData imageUploadOutputData, String inputText);
+    void prepareSuccessView(ImageUploadOutputData imageUploadOutputData);
 
     /**
      * Prepares the failure view for the ImageUpload related Use Cases.

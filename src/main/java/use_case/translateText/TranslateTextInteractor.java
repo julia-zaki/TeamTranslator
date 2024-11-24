@@ -43,6 +43,7 @@ public class TranslateTextInteractor implements TranslateTextInputBoundary {
 
                 textTranslator.translate();
                 final TranslateTextOutputData translateTextOutputData = new TranslateTextOutputData(
+                        textTranslator.getInputText(),
                         textTranslator.getOutputText(),
                         textTranslator.getInputLanguage());
                 translateTextOutputBoundary.prepareSuccessView(translateTextOutputData);

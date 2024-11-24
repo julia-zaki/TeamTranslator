@@ -6,13 +6,19 @@ package use_case.imageUpload;
 public class ImageUploadOutputData {
 
     private final String inputText;
+    private final String imageText;
 
-    public ImageUploadOutputData(String inputText) {
+    public ImageUploadOutputData(String inputText, String imageText) {
         this.inputText = inputText;
+        this.imageText = imageText;
     }
 
     public String getInputText() {
         return inputText;
+    }
+
+    public String getImageText() {
+        return imageText;
     }
 
 }
