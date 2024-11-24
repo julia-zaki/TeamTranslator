@@ -122,7 +122,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
                         final int result = fileChooser.showOpenDialog(this);
                         if (result == JFileChooser.APPROVE_OPTION) {
                             final File imageFile = fileChooser.getSelectedFile();
-                            imageUploadController.execute(imageFile);
+                            imageUploadController.execute(imageFile, translateInputField.getText());
                             JOptionPane.showMessageDialog(this,
                                     "", "Uploaded Image:",
                                     JOptionPane.PLAIN_MESSAGE, new ImageIcon(imageFile.getAbsolutePath()));

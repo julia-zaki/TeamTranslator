@@ -19,9 +19,10 @@ public class ImageUploadController {
     /**
      * Executes the ImageUpload Use Case.
      * @param imageFile the file of the image
+     * @param inputText the input text prior to calling upload image controller
      */
-    public void execute(File imageFile) {
-        final ImageUploadInputData imageUploadInputData = new ImageUploadInputData(imageFile);
+    public void execute(File imageFile, String inputText) {
+        final ImageUploadInputData imageUploadInputData = new ImageUploadInputData(imageFile, inputText);
 
         imageUploadUseCaseInteractor.execute(imageUploadInputData);
     }

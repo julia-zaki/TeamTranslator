@@ -20,10 +20,12 @@ public class ImageUploadPresenter implements ImageUploadOutputBoundary {
      * Prepares the success view for the ImageUpload related Use Cases.
      *
      * @param imageUploadOutputData the output data
+     * @param inputText the input text prior to ImageUpload Use Case
      */
     @Override
-    public void prepareSuccessView(ImageUploadOutputData imageUploadOutputData) {
-        imageUploadViewModel.getState().setInputText(imageUploadOutputData.getInputText());
+    public void prepareSuccessView(ImageUploadOutputData imageUploadOutputData, String inputText) {
+        // Set current input text to the previous input text concatenated with new text from image
+        imageUploadViewModel.getState().setInputText(inputText + "\n" + imageUploadOutputData.getInputText());
         imageUploadViewModel.getState().setError(null);
         imageUploadViewModel.firePropertyChanged();
 
@@ -33,9 +35,11 @@ public class ImageUploadPresenter implements ImageUploadOutputBoundary {
      * Prepares the failure view for the Image Upload related Use Cases.
      *
      * @param errorMessage the explanation of the failure
+     * @param inputText the input text prior to ImageUpload Use Case
      */
     @Override
-    public void prepareFailView(String errorMessage) {
+    public void prepareFailView(String errorMessage, String inputText) {
+        imageUploadViewModel.getState().setInputText(inputText);
         imageUploadViewModel.getState().setError(errorMessage);
         imageUploadViewModel.firePropertyChanged();
     }

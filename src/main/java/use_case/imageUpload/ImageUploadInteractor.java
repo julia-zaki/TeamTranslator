@@ -26,7 +26,8 @@ public class ImageUploadInteractor implements ImageUploadInputBoundary {
 
         // Check if file exists in user's local directory
         if (!imageUploadInputData.getImageFile().exists()) {
-            imageUploadOutputBoundary.prepareFailView("The file does not exist.");
+            imageUploadOutputBoundary.prepareFailView("The file does not exist.",
+                    imageUploadInputData.getInputText());
         }
 
         // Otherwise, use the DAO's getText method to retrieve the input image file's text
@@ -34,12 +35,23 @@ public class ImageUploadInteractor implements ImageUploadInputBoundary {
             try {
                 final String inputText = imageUploadDataAccess.getText(imageUploadInputData.getImageFile());
                 final ImageUploadOutputData outputData = new ImageUploadOutputData(inputText);
-                imageUploadOutputBoundary.prepareSuccessView(outputData);
+
+                // If no text was found in image, prepare fail view
+                if ("".equals(inputText)) {
+                    imageUploadOutputBoundary.prepareFailView("No text detected from image.",
+                            imageUploadInputData.getInputText());
+                }
+
+                // Else, prepare success view
+                else {
+                    imageUploadOutputBoundary.prepareSuccessView(outputData, imageUploadInputData.getInputText());
+                }
             }
 
             catch (DataAccessException ex) {
-                imageUploadOutputBoundary.prepareFailView(ex.getMessage());
+                imageUploadOutputBoundary.prepareFailView(ex.getMessage(), imageUploadInputData.getInputText());
             }
         }
+
     }
 }
