@@ -33,18 +33,19 @@ public class ImageUploadInteractor implements ImageUploadInputBoundary {
         // Otherwise, use the DAO's getText method to retrieve the input image file's text
         else {
             try {
-                final String inputText = imageUploadDataAccess.getText(imageUploadInputData.getImageFile());
-                final ImageUploadOutputData outputData = new ImageUploadOutputData(inputText);
+                final String imageText = imageUploadDataAccess.getText(imageUploadInputData.getImageFile());
+                final ImageUploadOutputData outputData = new ImageUploadOutputData(
+                        imageUploadInputData.getInputText(), imageText);
 
                 // If no text was found in image, prepare fail view
-                if ("".equals(inputText)) {
+                if ("".equals(imageText)) {
                     imageUploadOutputBoundary.prepareFailView("No text detected from image.",
                             imageUploadInputData.getInputText());
                 }
 
                 // Else, prepare success view
                 else {
-                    imageUploadOutputBoundary.prepareSuccessView(outputData, imageUploadInputData.getInputText());
+                    imageUploadOutputBoundary.prepareSuccessView(outputData);
                 }
             }
 

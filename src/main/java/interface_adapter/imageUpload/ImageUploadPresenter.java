@@ -20,12 +20,12 @@ public class ImageUploadPresenter implements ImageUploadOutputBoundary {
      * Prepares the success view for the ImageUpload related Use Cases.
      *
      * @param imageUploadOutputData the output data
-     * @param inputText the input text prior to ImageUpload Use Case
      */
     @Override
-    public void prepareSuccessView(ImageUploadOutputData imageUploadOutputData, String inputText) {
+    public void prepareSuccessView(ImageUploadOutputData imageUploadOutputData) {
         // Set current input text to the previous input text concatenated with new text from image
-        imageUploadViewModel.getState().setInputText(inputText + "\n" + imageUploadOutputData.getInputText());
+        imageUploadViewModel.getState().setInputText(imageUploadOutputData.getInputText() + "\n"
+                + imageUploadOutputData.getImageText());
         imageUploadViewModel.getState().setError(null);
         imageUploadViewModel.firePropertyChanged();
 
