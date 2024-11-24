@@ -39,7 +39,6 @@ public interface TranslateFileDataAccessInterface {
     Map<String, String> translateDocumentUpload(File inputFile, String inputLanguage, String outputLanguage)
             throws DataAccessException;
 
-
     /**
      * Return document status given the document id and document key from to the DeepL API.
      *

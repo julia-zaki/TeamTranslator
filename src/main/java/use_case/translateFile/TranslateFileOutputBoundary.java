@@ -5,7 +5,7 @@ package use_case.translateFile;
  */
 public interface TranslateFileOutputBoundary {
     /**
-     * Prepares the success view for the TranslateText related Use Cases.
+     * Prepares the success view for the TranslateFile related Use Cases.
      * @param translateFileOutputData the output data
      */
     void prepareSuccessView(TranslateFileOutputData translateFileOutputData);

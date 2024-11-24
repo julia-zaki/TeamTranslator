@@ -14,7 +14,8 @@ public interface TranslateFileInputBoundary {
     /**
      * Executes the translatefile use case for downloading the translated document.
      * @param translateFileInputData the input data.
+     * @throws DataAccessException if the output file could not be retrieved for any reason
      */
-    void executedownload(TranslateFileInputData translateFileInputData) throws DataAccessException;
+    void executeDownload(TranslateFileInputData translateFileInputData) throws DataAccessException;
 
 }

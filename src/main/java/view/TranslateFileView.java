@@ -37,7 +37,6 @@ import use_case.translateFile.TranslateFileDataAccessInterface;
  */
 public class TranslateFileView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    private static final String ERROR_TITLE = "Error";
     private static final int BYTE_ARRAY_CONSTANT = 1024;
     private static final Dimension FILE_BUTTONS_DIM = new Dimension(500, 70);
     private static final Font FILEBUTTONS_FONT = new Font("Arial", Font.PLAIN, 25);
@@ -138,27 +137,36 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
     private void downloadFileRequest(ActionEvent evt) throws DataAccessException {
         if (evt.getSource().equals(downloadButton)) {
 
-            final Map<String, String> docInfo = translateFileDai.translateDocumentUpload(
-                    translateFileState.getInputFile(),
-                    inputLanguageComboBox.getSelectedItem().toString(),
-                    outputLanguageComboBox.getSelectedItem().toString());
+            translateFileOutputField.setDialogType(JFileChooser.SAVE_DIALOG);
+            translateFileOutputField.setApproveButtonText("Save");
+            translateFileOutputField.setDialogTitle("Choose the location to save the translated file");
+            final int returnValue = translateFileOutputField.showSaveDialog(null);
 
-            final String docID = docInfo.get("document_id");
-            final String docKey = docInfo.get("document_key");
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
 
-            final String status = translateFileDai.getDocumentStatus(docID, docKey);
+                final Map<String, String> docInfo = translateFileDai.translateDocumentUpload(
+                        translateFileState.getInputFile(),
+                        inputLanguageComboBox.getSelectedItem().toString(),
+                        outputLanguageComboBox.getSelectedItem().toString());
 
-            if ("done".equals(status)) {
-                final File translatedFile = translateFileDai.downloadDocument(
-                        docID, docKey);
-                translateFileState.setOutputFile(translatedFile);
+                final String docID = docInfo.get("document_id");
+                final String docKey = docInfo.get("document_key");
 
-                translateFileOutputField.setDialogType(JFileChooser.SAVE_DIALOG);
-                translateFileOutputField.setApproveButtonText("Save");
-                translateFileOutputField.setDialogTitle("Choose the location to save the translated file");
-                final int returnValue = translateFileOutputField.showSaveDialog(null);
+                translateFileController.executeDownload(inputLanguageComboBox.getSelectedItem().toString(),
+                        translateFileState.getInputFile(),
+                        outputLanguageComboBox.getSelectedItem().toString(),
+                        docID,
+                        docKey
+                );
 
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                final String status = translateFileDai.getDocumentStatus(docID, docKey);
+
+                if ("done".equals(status)) {
+
+                    final File translatedFile = translateFileDai.downloadDocument(
+                            docID, docKey);
+                    translateFileState.setOutputFile(translatedFile);
+
                     final File selectedFile = translateFileOutputField.getSelectedFile();
                     try (InputStream translatedFileInputStream = new FileInputStream(translateFileState.getOutputFile());
 
@@ -175,13 +183,13 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
                     }
                     catch (IOException ex) {
                         JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(),
-                                ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+                                "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "Error: " + status,
-                        ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+                else {
+                    JOptionPane.showMessageDialog(null, "Error: " + status,
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }
@@ -200,7 +208,7 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
         setFields(state);
         if (state.getError() != null) {
             JOptionPane.showMessageDialog(this, state.getError(),
-                    ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

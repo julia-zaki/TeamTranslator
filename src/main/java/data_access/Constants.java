@@ -1,8 +1,6 @@
 package data_access;
 
-import java.util.*;
-
-import static javax.swing.UIManager.put;
+import java.util.Map;
 
 /**
  * Constants used in data access.

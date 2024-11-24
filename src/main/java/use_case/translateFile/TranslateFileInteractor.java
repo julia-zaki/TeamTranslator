@@ -52,6 +52,7 @@ public class TranslateFileInteractor implements TranslateFileInputBoundary {
             else {
                 fileTranslator.setDocumentID();
                 fileTranslator.setDocumentKey();
+                fileTranslator.setStatus(fileTranslator.getDocumentID(), fileTranslator.getDocumentKey());
             }
         }
         catch (DataAccessException ex) {
@@ -60,12 +61,12 @@ public class TranslateFileInteractor implements TranslateFileInputBoundary {
     }
 
     @Override
-    public void executedownload(TranslateFileInputData translateFileInputData) {
+    public void executeDownload(TranslateFileInputData translateFileInputData) {
         try {
-            if (fileTranslator.getDocumentID().isEmpty()) {
+            if (translateFileInputData.getDocumentID().isEmpty()) {
                 translateFileOutputBoundary.prepareFailView("Unable to determine the document ID.");
             }
-            else if (fileTranslator.getDocumentKey().isEmpty()) {
+            else if (translateFileInputData.getDocumentKey().isEmpty()) {
                 translateFileOutputBoundary.prepareFailView("Unable to determine the document key.");
             }
             else {

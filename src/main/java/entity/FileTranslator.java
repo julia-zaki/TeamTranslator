@@ -17,6 +17,7 @@ public class FileTranslator extends TextTranslator {
     private File outputFile;
     private String documentID;
     private String documentKey;
+    private String documentStatus;
 
     public FileTranslator() {
 
@@ -76,5 +77,16 @@ public class FileTranslator extends TextTranslator {
 
     public String getDocumentKey() {
         return documentKey;
+    }
+
+    /**
+     * Setter for the document status for the uploaded input file.
+     */
+    public void setStatus(String docID, String docKey) {
+        this.documentStatus = dataAccessObject.getDocumentStatus(docID, docKey);
+    }
+
+    public String getStatus() {
+        return documentStatus;
     }
 }

@@ -1,9 +1,9 @@
 package app;
 
-import data_access.DBTranslateTextDataAccessObject;
-import use_case.translateText.TranslateTextDataAccessInterface;
 import data_access.DBTranslateFileDataAccessObject;
+import data_access.DBTranslateTextDataAccessObject;
 import use_case.translateFile.TranslateFileDataAccessInterface;
+import use_case.translateText.TranslateTextDataAccessInterface;
 
 /**
  * An application where we can text.

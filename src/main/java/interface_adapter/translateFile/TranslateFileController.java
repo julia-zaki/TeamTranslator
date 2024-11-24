@@ -1,10 +1,10 @@
 package interface_adapter.translateFile;
 
+import java.io.File;
+
 import use_case.translateFile.DataAccessException;
 import use_case.translateFile.TranslateFileInputBoundary;
 import use_case.translateFile.TranslateFileInputData;
-
-import java.io.File;
 
 /**
  * The controller for the TranslateFile Use Case.
@@ -25,7 +25,7 @@ public class TranslateFileController {
      */
     public void executeUpload(String inputLanguage, File inputFile, String outputLanguage) {
         final TranslateFileInputData translateFileInputData = new TranslateFileInputData(
-                inputLanguage, inputFile, outputLanguage);
+                inputLanguage, inputFile, outputLanguage, null, null);
 
         translateFileUseCaseInteractor.executeUpload(translateFileInputData);
     }
@@ -35,13 +35,16 @@ public class TranslateFileController {
      * @param inputLanguage the language of the input File
      * @param inputFile the input file for the translation
      * @param outputLanguage the language of the translation
+     * @param documentID the document id.
+     * @param documentKey the document key.
      * @throws DataAccessException if the file cannot be downloaded for any reason.
      */
-    public void executedownload(String inputLanguage, File inputFile, String outputLanguage)
+    public void executeDownload(String inputLanguage, File inputFile, String outputLanguage,
+                                String documentID, String documentKey)
             throws DataAccessException {
         final TranslateFileInputData translateFileInputData = new TranslateFileInputData(
-                inputLanguage, inputFile, outputLanguage);
+                inputLanguage, inputFile, outputLanguage, documentID, documentKey);
 
-        translateFileUseCaseInteractor.executedownload(translateFileInputData);
+        translateFileUseCaseInteractor.executeDownload(translateFileInputData);
     }
 }
