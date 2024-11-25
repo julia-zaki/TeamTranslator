@@ -1,30 +1,16 @@
 package use_case.translateFile;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
+
+import use_case.translateText.DataAccessException;
+import use_case.translateText.TranslateTextDataAccessInterface;
 
 /**
  * Interface for the translateFileDAO. It consists of methods for
  * uploading a file for translation, downloading the translated file.
  */
-public interface TranslateFileDataAccessInterface {
-
-    /**
-     * Return all possible input languages available for translation.
-     * @return the set of input languages
-     * @throws DataAccessException if the input languages could not be retrieved for any reason
-     */
-    List<String> getInputLanguages() throws DataAccessException;
-
-    /**
-     * Return all possible output languages for the given input language.
-     * If the input language is null, return the list of all possible output languages.
-     * @param inputLanguage the input language
-     * @return the set of output languages
-     * @throws DataAccessException if the output languages could not be retrieved for any reason
-     */
-    List<String> getOutputLanguages(String inputLanguage) throws DataAccessException;
+public interface TranslateFileDataAccessInterface extends TranslateTextDataAccessInterface {
 
     /**
      * Uploads a document to the DeepL API for translation and returns the document handle with a document ID

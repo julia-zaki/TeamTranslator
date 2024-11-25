@@ -1,7 +1,7 @@
 package data_access;
 
 import org.junit.Test;
-import use_case.translateFile.DataAccessException;
+import use_case.translateText.DataAccessException;
 
 import java.util.Map;
 

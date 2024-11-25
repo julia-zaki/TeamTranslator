@@ -4,7 +4,7 @@ import java.io.File;
 
 import data_access.Constants;
 import data_access.DBTranslateFileDataAccessObject;
-import use_case.translateFile.DataAccessException;
+import use_case.translateText.DataAccessException;
 import use_case.translateFile.TranslateFileDataAccessInterface;
 
 /**

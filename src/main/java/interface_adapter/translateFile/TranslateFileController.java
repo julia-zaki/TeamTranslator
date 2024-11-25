@@ -2,9 +2,9 @@ package interface_adapter.translateFile;
 
 import java.io.File;
 
-import use_case.translateFile.DataAccessException;
 import use_case.translateFile.TranslateFileInputBoundary;
 import use_case.translateFile.TranslateFileInputData;
+import use_case.translateText.DataAccessException;
 
 /**
  * The controller for the TranslateFile Use Case.

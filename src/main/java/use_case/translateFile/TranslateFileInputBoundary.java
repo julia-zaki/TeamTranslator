@@ -1,5 +1,7 @@
 package use_case.translateFile;
 
+import use_case.translateText.DataAccessException;
+
 /**
  * Input Boundary for actions which are related to translating file.
  */

@@ -2,6 +2,7 @@ package use_case.translateFile;
 
 import data_access.Constants;
 import entity.FileTranslator;
+import use_case.translateText.DataAccessException;
 
 /**
  * The TranslateFile Interactor.

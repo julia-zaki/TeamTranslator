@@ -29,8 +29,8 @@ import data_access.DBTranslateFileDataAccessObject;
 import interface_adapter.translateFile.TranslateFileController;
 import interface_adapter.translateFile.TranslateFileState;
 import interface_adapter.translateFile.TranslateFileViewModel;
-import use_case.translateFile.DataAccessException;
 import use_case.translateFile.TranslateFileDataAccessInterface;
+import use_case.translateText.DataAccessException;
 
 /**
  * The View for when the user is translating a file.
