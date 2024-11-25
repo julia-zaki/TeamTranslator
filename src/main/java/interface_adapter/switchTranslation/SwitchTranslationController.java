@@ -14,7 +14,7 @@ public class SwitchTranslationController {
     }
 
     /**
-     * Executes the TranslateText Use Case.
+     * Executes the SwitchTranslation Use Case.
      * @param inputLanguage the language of the input text
      * @param inputText the input text for the translation
      * @param outputLanguage the language of the translation
