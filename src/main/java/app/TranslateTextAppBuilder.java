@@ -50,7 +50,7 @@ public class TranslateTextAppBuilder {
     public TranslateTextAppBuilder addTranslateTextUseCase() {
         final TranslateTextOutputBoundary translateTextOutputBoundary =
                 new TranslateTextPresenter(translateTextViewModel);
-        final TextTranslator textTranslator = new TextTranslator();
+        final TextTranslator textTranslator = new TextTranslator(translateTextDAO);
 
         translateTextInteractor = new TranslateTextInteractor(translateTextDAO, translateTextOutputBoundary,
                 textTranslator);
