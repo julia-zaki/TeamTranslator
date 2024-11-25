@@ -1,8 +1,6 @@
 package view;
 
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -52,6 +50,9 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private final JButton fileButton = new JButton("Translate File");
     private final JButton switchButton = new JButton("Switch");
     private final JButton imageButton = new JButton("Image Upload");
+    private final ImageIcon speaker = new ImageIcon("Images/speaker_resized.png");
+    private final JButton inputSpeakerButton = new JButton(speaker);
+    private final JButton outputSpeakerButton = new JButton(speaker);
     private TranslateTextController translateTextController;
     private ImageUploadController imageUploadController;
     private SwitchTranslationController switchTranslationController;
@@ -87,8 +88,8 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
         final BoxLayout boxLayout2 = new BoxLayout(outputPanel, BoxLayout.Y_AXIS);
         inputPanel.setLayout(boxLayout);
         outputPanel.setLayout(boxLayout2);
-        inputPanel.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.ALPHA));
-        outputPanel.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.ALPHA));
+        inputPanel.setPreferredSize(new Dimension(300, 325));
+        outputPanel.setPreferredSize(new Dimension(300, 325));
 
         inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
         inputLanguageComboBox.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.OMEGA));
@@ -133,23 +134,18 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
                 }
         );
 
-        switchButton.addActionListener(evt -> {
-            // Get input data from UI components
-            final String inputText = translateInputField.getText().trim();
-            final Object inputLang = inputLanguageComboBox.getSelectedItem();
-            final Object outputLang = outputLanguageComboBox.getSelectedItem();
-
-            switchTranslationController.execute(inputText, inputLang.toString(), outputLang.toString());
-        }
-        );
+        inputSpeakerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        outputSpeakerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         inputLanguageComboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         inputPanel.add(inputLanguageComboBox);
         inputPanel.add(inputScrollPane);
+        inputPanel.add(inputSpeakerButton);
 
         outputLanguageComboBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
         outputPanel.add(outputLanguageComboBox);
         outputPanel.add(outputScrollPane);
+        outputPanel.add(outputSpeakerButton);
 
         this.setLayout(new FlowLayout());
 
