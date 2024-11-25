@@ -6,12 +6,17 @@ import javax.swing.WindowConstants;
 import entity.TextTranslator;
 import interface_adapter.imageUpload.ImageUploadController;
 import interface_adapter.imageUpload.ImageUploadPresenter;
+import interface_adapter.switchTranslation.SwitchTranslationController;
+import interface_adapter.switchTranslation.SwitchTranslationPresenter;
 import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextPresenter;
 import interface_adapter.translateText.TranslateTextViewModel;
 import use_case.imageUpload.ImageUploadDataAccessInterface;
 import use_case.imageUpload.ImageUploadInteractor;
 import use_case.imageUpload.ImageUploadOutputBoundary;
+import use_case.switchTranslation.SwitchTranslationDataAccessInterface;
+import use_case.switchTranslation.SwitchTranslationInteractor;
+import use_case.switchTranslation.SwitchTranslationOutputBoundary;
 import use_case.translateText.TranslateTextDataAccessInterface;
 import use_case.translateText.TranslateTextInteractor;
 import use_case.translateText.TranslateTextOutputBoundary;
@@ -25,10 +30,12 @@ public class TranslateTextAppBuilder {
     public static final int WIDTH = 800;
     private TranslateTextDataAccessInterface translateTextDAO;
     private ImageUploadDataAccessInterface imageUploadDAO;
+    private SwitchTranslationDataAccessInterface switchTranslationDAO;
     private TranslateTextViewModel translateTextViewModel = new TranslateTextViewModel();
     private TranslateTextView translateTextView;
     private TranslateTextInteractor translateTextInteractor;
     private ImageUploadInteractor imageUploadInteractor;
+    private SwitchTranslationInteractor switchTranslationInteractor;
 
     /**
      * Sets the translatetextDAO to be used in this application.
@@ -91,6 +98,39 @@ public class TranslateTextAppBuilder {
             throw new RuntimeException("addTranslateTextView must be called before addImageUploadUseCase");
         }
         translateTextView.setImageUploadController(controller);
+        return this;
+    }
+
+    /**
+     * Sets the switchTranslationDAO to be used in this application.
+     * @param switchTranslationDataAccess the DAO to use
+     * @return this builder
+     */
+    public TranslateTextAppBuilder addSwitchTranslationDAO(
+            SwitchTranslationDataAccessInterface switchTranslationDataAccess) {
+        switchTranslationDAO = switchTranslationDataAccess;
+        return this;
+    }
+
+    /**
+     * Creates the objects for the Switch Translation Use Case and connects the TranslateTextView to its
+     * controller. Uses the same view as TranslateTextView.
+     * <p>This method must be called after addTranslateTextView!</p>
+     * @return this builder
+     * @throws RuntimeException if this method is called before addTranslateTextView
+     */
+    public TranslateTextAppBuilder addSwitchTranslationUseCase() {
+        final SwitchTranslationOutputBoundary switchTranslationOutputBoundary =
+                new SwitchTranslationPresenter(translateTextViewModel);
+
+        switchTranslationInteractor = new SwitchTranslationInteractor(switchTranslationDAO,
+                switchTranslationOutputBoundary);
+
+        final SwitchTranslationController controller = new SwitchTranslationController(switchTranslationInteractor);
+        if (translateTextView == null) {
+            throw new RuntimeException("addTranslateTextView must be called before addSwitchTranslationUseCase");
+        }
+        translateTextView.setSwitchTranslationController(controller);
         return this;
     }
 

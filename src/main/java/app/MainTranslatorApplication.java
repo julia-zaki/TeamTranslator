@@ -3,10 +3,11 @@ package app;
 import data_access.DBImageUploadDataAccessObject;
 import data_access.DBTranslateTextDataAccessObject;
 import use_case.imageUpload.ImageUploadDataAccessInterface;
+import use_case.switchTranslation.SwitchTranslationDataAccessInterface;
 import use_case.translateText.TranslateTextDataAccessInterface;
 
 /**
- * An application where we can text.
+ * An application where we can translate text.
  */
 public class MainTranslatorApplication {
 
@@ -22,12 +23,15 @@ public class MainTranslatorApplication {
         // create the data access and inject it into our builder!
         final TranslateTextDataAccessInterface translateTextDataAccess = new DBTranslateTextDataAccessObject();
         final ImageUploadDataAccessInterface imageUploadDataAccess = new DBImageUploadDataAccessObject();
+        final SwitchTranslationDataAccessInterface switchTranslationDataAccess = new DBTranslateTextDataAccessObject();
 
         final app.TranslateTextAppBuilder builder = new app.TranslateTextAppBuilder();
         builder.addTranslateTextDAO(translateTextDataAccess)
                 .addImageUploadDAO(imageUploadDataAccess)
+                .addSwitchTranslationDAO(switchTranslationDataAccess)
                 .addTranslateTextView()
                 .addTranslateTextUseCase()
+                .addSwitchTranslationUseCase()
                 .addImageUploadUseCase().build().setVisible(true);
     }
 }
