@@ -1,7 +1,7 @@
 package use_case.switchTranslation;
 
 /**
- * Output Data for  the TranslateText Use Case.
+ * Output Data for  the SwitchTranslation Use Case.
  */
 public class SwitchTranslationOutputData {
     private final String inputText;

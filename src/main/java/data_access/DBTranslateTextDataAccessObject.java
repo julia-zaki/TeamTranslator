@@ -232,9 +232,40 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
         // switching
         final Map<String, String> switchedResult = new HashMap<>();
         switchedResult.put(Constants.TEXT_KEY, translatedText);
-        switchedResult.put(Constants.LANGUAGE_KEY, outputLanguage);
+
+        if ("English (British)".equals(outputLanguage) || "English (American)".equals(outputLanguage)) {
+            final String newOutputLanguage = new String("English");
+            switchedResult.put(Constants.LANGUAGE_KEY, newOutputLanguage);
+        }
+        else if ("Portuguese (Brazilian)".equals(outputLanguage) || "Portuguese (European)".equals(outputLanguage)) {
+            final String newOutputLanguage = new String("Portuguese");
+            switchedResult.put(Constants.LANGUAGE_KEY, newOutputLanguage);
+        }
+        else if ("Chinese (simplified)".equals(outputLanguage)) {
+            final String newOutputLanguage = new String("Chinese");
+            switchedResult.put(Constants.LANGUAGE_KEY, newOutputLanguage);
+        }
+        else {
+            switchedResult.put(Constants.LANGUAGE_KEY, outputLanguage);
+        }
+
         switchedResult.put("translatedText", inputText);
-        switchedResult.put("outputLanguage", inputLanguage);
+
+        if ("English".equals(inputLanguage)) {
+            final String newInputLanguage = new String("English (American)");
+            switchedResult.put("outputLanguage", newInputLanguage);
+        }
+        else if ("Chinese".equals(inputLanguage)) {
+            final String newInputLanguage = new String("Chinese (simplified)");
+            switchedResult.put("outputLanguage", newInputLanguage);
+        }
+        else if ("Portuguese".equals(inputLanguage)) {
+            final String newInputLanguage = new String("Portuguese (Brazilian)");
+            switchedResult.put("outputLanguage", newInputLanguage);
+        }
+        else {
+            switchedResult.put("outputLanguage", inputLanguage);
+        }
 
         return switchedResult;
     }

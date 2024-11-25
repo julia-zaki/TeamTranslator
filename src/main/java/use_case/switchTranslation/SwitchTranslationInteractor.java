@@ -22,7 +22,7 @@ public class SwitchTranslationInteractor implements SwitchTranslationInputBounda
     }
 
     /**
-     * Executes the Switch Translation Use Case.
+     * Executes the SwitchTranslation Use Case.
      *
      * @param switchTranslationInputData the input data.
      */
@@ -34,6 +34,9 @@ public class SwitchTranslationInteractor implements SwitchTranslationInputBounda
                     .isEmpty()) {
                 switchTranslationOutputBoundary.prepareFailView("Input text cannot be empty. Please provide "
                         + "text to translate.");
+            }
+            else if (switchTranslationInputData.getInputLanguage().equals(Constants.DETECT)) {
+                switchTranslationOutputBoundary.prepareFailView("Please select an input language.");
             }
             else {
                 // Proceed with the switching process
