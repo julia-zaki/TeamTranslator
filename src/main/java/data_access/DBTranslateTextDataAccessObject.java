@@ -229,7 +229,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
 
         // Creating new variables for the switch
 
-        // switching
+        // switching.
         final Map<String, String> switchedResult = new HashMap<>();
         switchedResult.put(Constants.TEXT_KEY, translatedText);
 
