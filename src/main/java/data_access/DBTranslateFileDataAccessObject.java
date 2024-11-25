@@ -17,7 +17,6 @@ import java.util.Random;
 
 import org.json.JSONObject;
 
-import com.deepl.api.Translator;
 import use_case.translateFile.TranslateFileDataAccessInterface;
 import use_case.translateText.DataAccessException;
 
@@ -36,9 +35,10 @@ public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessOb
     private static final String CONTENT_TYPE = "Content-Type";
     private static final String STR1 = "--";
     private static final String STR2 = "\r\n";
+    private static final int BYTE_CONSTANT = 1024;
 
     public DBTranslateFileDataAccessObject() {
-        super();
+
     }
 
     @Override
@@ -47,11 +47,15 @@ public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessOb
 
         final HttpClient client;
         final Map<String, String> docInfo = new HashMap<>();
+        String codeInputLang = languageToCode(inputLanguage);
+        final String codeOutputLang = languageToCode(outputLanguage);
+
+        if (codeInputLang == null) {
+            codeInputLang = "";
+        }
 
         try {
-            final HttpRequest request = buildMultipartRequest(inputFile, languageToCode.get(inputLanguage),
-                    languageToCode.get(outputLanguage));
-
+            final HttpRequest request = buildMultipartRequest(inputFile, codeInputLang, codeOutputLang);
             client = HttpClient.newHttpClient();
 
             final HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -119,17 +123,34 @@ public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessOb
                     .build();
 
             final HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            final JSONObject status = new JSONObject(response.body());
-            String docStatus = status.get("status").toString();
+            final JSONObject jsonStatus = new JSONObject(response.body());
+            String docStatus = jsonStatus.get("status").toString();
 
-            if (!"done".equals(docStatus)) {
-                docStatus = status.get("error_message").toString();
-            }
+            docStatus = getStatus(docStatus, jsonStatus);
             return docStatus;
         }
         catch (IOException | InterruptedException | URISyntaxException ex) {
             throw new RuntimeException(ex.getMessage());
         }
+    }
+
+    private static String getStatus(String docStatus, JSONObject jsonStatus) {
+        String status = "";
+        if ("translating".equals(docStatus)) {
+            status = "Estimated seconds until translation is done : "
+                    + jsonStatus.get("seconds_remaining").toString();
+        }
+        else if ("queued".equals(docStatus)) {
+            status = "The translation job is waiting in line to be processed. " + "\n"
+                    + "Please try to download it later.";
+        }
+        else if ("error".equals(docStatus)) {
+            status = "ERROR: " + jsonStatus.get("error_message").toString();
+        }
+        else if ("done".equals(docStatus)) {
+            status = jsonStatus.get("status").toString();
+        }
+        return status;
     }
 
     @Override
@@ -138,7 +159,7 @@ public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessOb
         try {
             final URI url = new URI("https://api-free.deepl.com/v2/document/" + documentId + "/result");
 
-            // Send a HTTP request and get the binary
+            // Send HTTP request and get the binary
             final HttpClient client = HttpClient.newHttpClient();
             final String body = "{\"document_key\":\"" + documentKey + "\"}";
             final HttpRequest request = HttpRequest.newBuilder(url)
@@ -151,7 +172,7 @@ public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessOb
 
             final InputStream inputStream = response.body();
             final FileOutputStream outputStream = new FileOutputStream(outputFile);
-            final byte[] buffer = new byte[1024];
+            final byte[] buffer = new byte[BYTE_CONSTANT];
             int bytesRead;
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);

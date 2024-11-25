@@ -165,10 +165,10 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
 
                     final File translatedFile = translateFileDai.downloadDocument(
                             docID, docKey);
-                    translateFileState.setOutputFile(translatedFile);
 
                     final File selectedFile = translateFileOutputField.getSelectedFile();
-                    try (InputStream translatedFileInputStream = new FileInputStream(translateFileState.getOutputFile());
+                    try (InputStream translatedFileInputStream = new FileInputStream(
+                            translatedFile);
 
                          OutputStream fileOutputStream = new FileOutputStream(selectedFile)) {
 
@@ -187,8 +187,8 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
                     }
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Error: " + status,
-                            "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, status,
+                            "Message", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
