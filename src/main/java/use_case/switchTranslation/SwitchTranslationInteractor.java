@@ -6,7 +6,7 @@ import data_access.Constants;
 import use_case.translateText.DataAccessException;
 
 /**
- * The SwitchTranslation Interactor.
+ * The SwitchTranslation  Interactor.
  */
 
 public class SwitchTranslationInteractor implements SwitchTranslationInputBoundary {

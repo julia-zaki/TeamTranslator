@@ -4,7 +4,7 @@ import use_case.switchTranslation.SwitchTranslationInputBoundary;
 import use_case.switchTranslation.SwitchTranslationInputData;
 
 /**
- * The controller for the SwitchTranslation Use Case.
+ * The controller for  the SwitchTranslation Use Case.
  */
 public class SwitchTranslationController {
     private final SwitchTranslationInputBoundary switchTranslarionUseCaseInteractor;

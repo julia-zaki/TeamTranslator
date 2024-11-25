@@ -5,7 +5,7 @@ import use_case.switchTranslation.SwitchTranslationOutputBoundary;
 import use_case.switchTranslation.SwitchTranslationOutputData;
 
 /**
- * The presenter for the SwitchTranslation Use Case.
+ * The presenter for the  SwitchTranslation Use Case.
  */
 
 public class SwitchTranslationPresenter implements SwitchTranslationOutputBoundary {
