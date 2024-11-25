@@ -4,9 +4,14 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import entity.TextTranslator;
+import interface_adapter.imageUpload.ImageUploadController;
+import interface_adapter.imageUpload.ImageUploadPresenter;
 import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextPresenter;
 import interface_adapter.translateText.TranslateTextViewModel;
+import use_case.imageUpload.ImageUploadDataAccessInterface;
+import use_case.imageUpload.ImageUploadInteractor;
+import use_case.imageUpload.ImageUploadOutputBoundary;
 import use_case.translateText.TranslateTextDataAccessInterface;
 import use_case.translateText.TranslateTextInteractor;
 import use_case.translateText.TranslateTextOutputBoundary;
@@ -16,12 +21,14 @@ import view.TranslateTextView;
  * Builder for the Translator Application.
  */
 public class TranslateTextAppBuilder {
-    public static final int HEIGHT = 300;
-    public static final int WIDTH = 400;
+    public static final int HEIGHT = 500;
+    public static final int WIDTH = 800;
     private TranslateTextDataAccessInterface translateTextDAO;
+    private ImageUploadDataAccessInterface imageUploadDAO;
     private TranslateTextViewModel translateTextViewModel = new TranslateTextViewModel();
     private TranslateTextView translateTextView;
     private TranslateTextInteractor translateTextInteractor;
+    private ImageUploadInteractor imageUploadInteractor;
 
     /**
      * Sets the translatetextDAO to be used in this application.
@@ -53,6 +60,37 @@ public class TranslateTextAppBuilder {
             throw new RuntimeException("addTranslateTextView must be called before addTranslateTextUseCase");
         }
         translateTextView.setTranslateTextController(controller);
+        return this;
+    }
+
+    /**
+     * Sets the imageUploadDAO to be used in this application.
+     * @param imageUploadDataAccess the DAO to use
+     * @return this builder
+     */
+    public TranslateTextAppBuilder addImageUploadDAO(ImageUploadDataAccessInterface imageUploadDataAccess) {
+        this.imageUploadDAO = imageUploadDataAccess;
+        return this;
+    }
+
+    /**
+     * Creates the objects  for the Image Upload Use Case and connects the TranslateTextView to its
+     * controller. Image Upload uses the same view as TranslateTextView.
+     * <p>This method must be called after addTranslateTextView!</p>
+     * @return this builder
+     * @throws RuntimeException if this method is called before addTranslateTextView
+     */
+    public TranslateTextAppBuilder addImageUploadUseCase() {
+        final ImageUploadOutputBoundary imageUploadOutputBoundary =
+                new ImageUploadPresenter(translateTextViewModel);
+
+        imageUploadInteractor = new ImageUploadInteractor(imageUploadDAO, imageUploadOutputBoundary);
+
+        final ImageUploadController controller = new ImageUploadController(imageUploadInteractor);
+        if (translateTextView == null) {
+            throw new RuntimeException("addTranslateTextView must be called before addImageUploadUseCase");
+        }
+        translateTextView.setImageUploadController(controller);
         return this;
     }
 

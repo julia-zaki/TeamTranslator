@@ -1,8 +1,6 @@
 package app;
 
-import data_access.DBTranslateFileDataAccessObject;
 import data_access.DBTranslateTextDataAccessObject;
-import use_case.translateFile.TranslateFileDataAccessInterface;
 import use_case.translateText.TranslateTextDataAccessInterface;
 
 /**
@@ -21,16 +19,10 @@ public class MainTranslatorApplication {
 
         // create the data access and inject it into our builder!
         final TranslateTextDataAccessInterface translateTextDataAccess = new DBTranslateTextDataAccessObject();
-        final TranslateFileDataAccessInterface translateFileDataAccess = new DBTranslateFileDataAccessObject();
 
         final app.TranslateTextAppBuilder builder = new app.TranslateTextAppBuilder();
         builder.addTranslateTextDAO(translateTextDataAccess)
                 .addTranslateTextView()
                 .addTranslateTextUseCase().build().setVisible(true);
-
-        final app.TranslateFileAppBuilder translateFileAppBuilder = new app.TranslateFileAppBuilder();
-        translateFileAppBuilder.addTranslateFileDAO(translateFileDataAccess)
-                .addTranslateFileView()
-                .addTranslateFileUseCase().build().setVisible(true);
     }
 }

@@ -81,7 +81,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
 
     }
 
-    private void getCodeLanguageMaps() throws DataAccessException {
+    protected void getCodeLanguageMaps() throws DataAccessException {
         final String url = "https://api-free.deepl.com/v2/languages";
         final HttpClient client;
 
@@ -118,7 +118,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
      * @return the language name (ie. English)
      */
 
-    private String codeToLanguage(String code) {
+    protected String codeToLanguage(String code) {
         String result = null;
         if (code != null) {
             result = codeToLanguage.get(code);
@@ -132,7 +132,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
      * @param language the language name (example: English)
      * @return the language code (example: en)
      */
-    private String languageToCode(String language) {
+    protected String languageToCode(String language) {
         final String result;
         if (Constants.DETECT.equals(language)) {
             result = null;
@@ -144,7 +144,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
         return result;
     }
 
-    private void getSourceLanguages() throws DataAccessException {
+    protected void getSourceLanguages() throws DataAccessException {
         final List<Language> sourceLanguages;
         try {
             sourceLanguages = translator.getSourceLanguages();
@@ -164,7 +164,7 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
         inputLanguages = List.of(result);
     }
 
-    private void getTargetLanguages() throws DataAccessException {
+    protected void getTargetLanguages() throws DataAccessException {
         final List<Language> targetLanguages;
         try {
             targetLanguages = translator.getTargetLanguages();
