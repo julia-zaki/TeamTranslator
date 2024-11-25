@@ -22,6 +22,7 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import interface_adapter.imageUpload.ImageUploadController;
+import interface_adapter.switchTranslation.SwitchTranslationController;
 import interface_adapter.translateText.TranslateState;
 import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextViewModel;
@@ -47,13 +48,14 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private final JButton textButton = new JButton("Translate Text");
     private final JButton videoButton = new JButton("Translate Video");
     private final JButton fileButton = new JButton("Translate File");
-    private final JButton vocabButton = new JButton("Vocabulary");
+    private final JButton switchButton = new JButton("Switch");
     private final JButton imageButton = new JButton("Image Upload");
     private final ImageIcon speaker = new ImageIcon("Images/speaker_resized.png");
     private final JButton inputSpeakerButton = new JButton(speaker);
     private final JButton outputSpeakerButton = new JButton(speaker);
     private TranslateTextController translateTextController;
     private ImageUploadController imageUploadController;
+    private SwitchTranslationController switchTranslationController;
 
     public TranslateTextView(TranslateTextViewModel translateTextViewModel,
                              TranslateTextDataAccessInterface translateTextDataAccess) {
@@ -90,18 +92,18 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
         outputPanel.setPreferredSize(new Dimension(300, 325));
 
         inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
-        inputLanguageComboBox.setPreferredSize(new Dimension(300, 25));
-        inputScrollPane.setPreferredSize(new Dimension(300, 275));
-        outputScrollPane.setPreferredSize(new Dimension(300, 275));
+        inputLanguageComboBox.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.OMEGA));
+        inputScrollPane.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.BETA));
+        outputScrollPane.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.BETA));
         outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
-        outputLanguageComboBox.setPreferredSize(new Dimension(300, 25));
+        outputLanguageComboBox.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.OMEGA));
 
         final JPanel buttons = new JPanel();
         buttons.add(textButton);
         buttons.add(videoButton);
         buttons.add(fileButton);
         buttons.add(imageButton);
-        buttons.add(vocabButton);
+        buttons.add(switchButton);
 
         textButton.addActionListener(
                 evt -> {
@@ -176,6 +178,14 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
         inputLanguageComboBox.setSelectedItem(state.getInputLanguage());
         translateInputField.setText(state.getInputText());
 
+        final String outputLanguage = state.getOutputLanguage();
+        if (outputLanguages.contains(outputLanguage)) {
+            outputLanguageComboBox.setSelectedItem(outputLanguage);
+        }
+        else {
+            System.err.println("Invalid Output Language: " + outputLanguage);
+            // Optionally, reset to a default value or show an error message
+        }
     }
 
     public void setTranslateTextController(TranslateTextController translateTextcontroller) {
@@ -184,5 +194,9 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
 
     public void setImageUploadController(ImageUploadController imageUploadController) {
         this.imageUploadController = imageUploadController;
+    }
+
+    public void setSwitchTranslationController(SwitchTranslationController switchTranslationController) {
+        this.switchTranslationController = switchTranslationController;
     }
 }
