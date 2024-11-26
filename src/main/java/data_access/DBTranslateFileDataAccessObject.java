@@ -25,7 +25,8 @@ import use_case.translateText.DataAccessException;
  * API links: <a href="https://developers.deepl.com/docs/api-reference/translate">...</a>.
  *            <a href="https://developers.deepl.com/docs/api-reference/document">...</a>.
  */
-public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessObject implements TranslateFileDataAccessInterface {
+public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessObject
+        implements TranslateFileDataAccessInterface {
 
     private static final String AUTH_KEY = "a3c3d2b6-e5e2-42ce-aac7-aba5f20a0571:fx";
     private static final String BOUNDARY = "----WebKitFormBoundary"
@@ -137,8 +138,7 @@ public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessOb
     private static String getStatus(String docStatus, JSONObject jsonStatus) {
         String status = "";
         if ("translating".equals(docStatus)) {
-            status = "Estimated seconds until translation is done : "
-                    + jsonStatus.get("seconds_remaining").toString();
+            status = "The file is still translating. " + "\n" + "Please try to download it later.";
         }
         else if ("queued".equals(docStatus)) {
             status = "The translation job is waiting in line to be processed. " + "\n"
@@ -183,5 +183,4 @@ public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessOb
             throw new DataAccessException(ex.getMessage());
         }
     }
-
 }
