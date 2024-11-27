@@ -3,24 +3,23 @@ package entity;
 import java.io.File;
 
 import data_access.Constants;
-import data_access.DBTranslateFileDataAccessObject;
-import use_case.translateText.DataAccessException;
 import use_case.translateFile.TranslateFileDataAccessInterface;
+import use_case.translateText.DataAccessException;
 
 /**
  * The representation of a File Translator.
  */
 public class FileTranslator extends TextTranslator {
 
-    private final TranslateFileDataAccessInterface dataAccessObject = new DBTranslateFileDataAccessObject();
+    private final TranslateFileDataAccessInterface dataAccessObject;
     private File inputFile;
     private File outputFile;
     private String documentID;
     private String documentKey;
     private String documentStatus;
 
-    public FileTranslator() {
-
+    public FileTranslator(TranslateFileDataAccessInterface dataAccessObject) {
+        this.dataAccessObject = dataAccessObject;
     }
 
     public void setInputFile(File inputFile) {
@@ -81,6 +80,8 @@ public class FileTranslator extends TextTranslator {
 
     /**
      * Setter for the document status for the uploaded input file.
+     * @param docID the document id.
+     * @param docKey the document key.
      */
     public void setStatus(String docID, String docKey) {
         this.documentStatus = dataAccessObject.getDocumentStatus(docID, docKey);

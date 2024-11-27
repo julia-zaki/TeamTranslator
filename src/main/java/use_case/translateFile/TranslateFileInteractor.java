@@ -33,11 +33,10 @@ public class TranslateFileInteractor implements TranslateFileInputBoundary {
             if (!dataAccessObject.getInputLanguages().contains(fileTranslator.getInputLanguage())) {
                 translateFileOutputBoundary.prepareFailView("Selected language does not exist in translator.");
             }
-            else if (!dataAccessObject.getOutputLanguages(fileTranslator.getInputLanguage())
-                    .contains(fileTranslator.getOutputLanguage())) {
+            else if (!dataAccessObject.getOutputLanguages(fileTranslator.getInputLanguage()).contains(
+                    fileTranslator.getOutputLanguage())) {
                 translateFileOutputBoundary.prepareFailView("Translated language does not exist in translator.");
             }
-
             else if (fileTranslator.getInputFile() == null) {
                 translateFileOutputBoundary.prepareFailView("No file is uploaded.");
             }
@@ -54,6 +53,11 @@ public class TranslateFileInteractor implements TranslateFileInputBoundary {
                 fileTranslator.setDocumentID();
                 fileTranslator.setDocumentKey();
                 fileTranslator.setStatus(fileTranslator.getDocumentID(), fileTranslator.getDocumentKey());
+                final TranslateFileOutputData translateFileOutputData = new TranslateFileOutputData(
+                        fileTranslator.getInputLanguage(), fileTranslator.getOutputLanguage(),
+                        fileTranslator.getOutputFile(), fileTranslator.getDocumentID(),
+                        fileTranslator.getDocumentKey());
+                translateFileOutputBoundary.prepareSuccessView(translateFileOutputData);
             }
         }
         catch (DataAccessException ex) {
@@ -74,7 +78,9 @@ public class TranslateFileInteractor implements TranslateFileInputBoundary {
                 fileTranslator.setOutputFile(dataAccessObject.downloadDocument(fileTranslator.getDocumentID(),
                         fileTranslator.getDocumentKey()));
                 final TranslateFileOutputData translateFileOutputData = new TranslateFileOutputData(
-                        fileTranslator.getOutputFile(), fileTranslator.getInputLanguage());
+                        fileTranslator.getInputLanguage(), fileTranslator.getOutputLanguage(),
+                        fileTranslator.getOutputFile(), fileTranslator.getDocumentID(),
+                        fileTranslator.getDocumentKey());
                 translateFileOutputBoundary.prepareSuccessView(translateFileOutputData);
             }
         }

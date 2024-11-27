@@ -15,10 +15,10 @@ public class DBTranslateFileDataAccessObjectTest {
     @Test
     public void testTranslateFile() throws DataAccessException, IOException {
 
-        File inputfile = new File("TestingFileTranslation.txt");
+        File inputfile = new File("TestFileTranslation.txt");
         Map<String, String> docInfo =
                 translateFileDAO.translateDocumentUpload(inputfile,
-                        "Detect Language", "English");
+                        "Detect Language", "French");
         String docId = docInfo.get("document_id");
         String docKey = docInfo.get("document_key");
         File fileTranslationResult = translateFileDAO.downloadDocument(docId, docKey);
@@ -28,10 +28,9 @@ public class DBTranslateFileDataAccessObjectTest {
         }
 
         String translatedFileContent = readFileContent(fileTranslationResult);
-        String expectedTranslation = "It's time. it's 2AM" + "\n"
-                + "Can you lower your voice and whisper more?" + "\n"
-                + "When this night gets a little deeper" + "\n"
-                + "I feel like I can be more honest with you" + "\n";
+        String expectedTranslation = "C'est l'heure. Il est 2 heures du matin.\n" +
+                "Peux-tu baisser la voix et chuchoter davantage ?\n" +
+                "Quand cette nuit devient un peu plus profonde\n";
         assert(translatedFileContent.equals(expectedTranslation));
     }
 

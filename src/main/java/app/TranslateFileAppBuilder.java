@@ -44,7 +44,7 @@ public class TranslateFileAppBuilder {
     public TranslateFileAppBuilder addTranslateFileUseCase() {
         final TranslateFileOutputBoundary translateFileOutputBoundary =
                 new TranslateFilePresenter(translateFileViewModel);
-        final FileTranslator fileTranslator = new FileTranslator();
+        final FileTranslator fileTranslator = new FileTranslator(translateFileDAO);
 
         translateFileInteractor = new TranslateFileInteractor(translateFileDAO, translateFileOutputBoundary,
                 fileTranslator);
