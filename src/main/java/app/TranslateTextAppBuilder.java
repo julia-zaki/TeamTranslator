@@ -20,7 +20,7 @@ import use_case.switchTranslation.SwitchTranslationOutputBoundary;
 import use_case.translateText.TranslateTextDataAccessInterface;
 import use_case.translateText.TranslateTextInteractor;
 import use_case.translateText.TranslateTextOutputBoundary;
-import view.TranslateTextView;
+import view.translateText.TranslateTextView;
 
 /**
  * Builder for the Translator Application.

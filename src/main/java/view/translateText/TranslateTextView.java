@@ -1,4 +1,4 @@
-package view;
+package view.translateText;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,11 +28,15 @@ import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextViewModel;
 import use_case.translateText.DataAccessException;
 import use_case.translateText.TranslateTextDataAccessInterface;
+import view.MagicNumber;
 
 /**
  * The View for when the user is translating.
  */
 public class TranslateTextView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    private TranslateTextViewTextPanel inputPanel;
+    private TranslateTextViewTextPanel outputPanel;
 
     private final TranslateTextViewModel translateTextViewModel;
     private final JLabel translation = new JLabel("Translation");
@@ -199,4 +203,5 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     public void setSwitchTranslationController(SwitchTranslationController switchTranslationController) {
         this.switchTranslationController = switchTranslationController;
     }
+
 }

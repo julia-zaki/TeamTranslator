@@ -269,5 +269,4 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
 
         return switchedResult;
     }
-
 }
