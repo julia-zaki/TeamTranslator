@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+// the interactor tests.
 public class SwitchTranslationInteractorTest {
     @Test
     public void ExecuteSuccessEnglishAsInputTest() {

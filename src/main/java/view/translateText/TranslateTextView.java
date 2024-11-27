@@ -92,8 +92,8 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
         final BoxLayout boxLayout2 = new BoxLayout(outputPanel, BoxLayout.Y_AXIS);
         inputPanel.setLayout(boxLayout);
         outputPanel.setLayout(boxLayout2);
-        inputPanel.setPreferredSize(new Dimension(300, 325));
-        outputPanel.setPreferredSize(new Dimension(300, 325));
+        inputPanel.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.GAMMA));
+        outputPanel.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.GAMMA));
 
         inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
         inputLanguageComboBox.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.OMEGA));
@@ -137,6 +137,14 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
                     }
                 }
         );
+
+        switchButton.addActionListener(evt -> {
+            final String inputText = translateInputField.getText().trim();
+            final Object inputLang = inputLanguageComboBox.getSelectedItem();
+            final Object outputLang = outputLanguageComboBox.getSelectedItem();
+
+            switchTranslationController.execute(inputText, inputLang.toString(), outputLang.toString());
+        });
 
         inputSpeakerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         outputSpeakerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
