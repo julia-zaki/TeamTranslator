@@ -16,6 +16,7 @@ import com.deepl.api.DeepLException;
 import com.deepl.api.Language;
 import com.deepl.api.TextResult;
 import com.deepl.api.Translator;
+import use_case.switchTranslation.SwitchTranslationDataAccessInterface;
 import use_case.translateText.DataAccessException;
 import use_case.translateText.TranslateTextDataAccessInterface;
 
@@ -23,7 +24,8 @@ import use_case.translateText.TranslateTextDataAccessInterface;
  * The DAO for translating text using DeepL API.
  * API link: <a href="https://developers.deepl.com/docs/api-reference/translate">...</a>.
  */
-public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessInterface {
+public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessInterface,
+        SwitchTranslationDataAccessInterface {
 
     private static final String AUTH_KEY = "a3c3d2b6-e5e2-42ce-aac7-aba5f20a0571:fx";
     private final Map<String, String> codeToLanguage = new HashMap<>();
@@ -204,4 +206,68 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
     public List<String> getOutputLanguages(String inputLanguage) throws DataAccessException {
         return outputLanguages;
     }
+
+    /**
+     * Switch the input language to be the output language and vice versa. Switch the input text to be the output
+     * text and vice versa
+     *
+     * @param inputText the input language.
+     * @param inputLanguage the input language.
+     * @param outputLanguage the input language.
+     * @return a mapping with the keys as the output text/language and values as input text/language.
+     * @throws DataAccessException if the text could not be translated for any reason
+     */
+
+    @Override
+    public Map<String, String> switchLanguagesAndTexts(String inputText, String inputLanguage, String outputLanguage)
+            throws DataAccessException {
+        // translating the text using the translateText method
+        final Map<String, String> translationResult = translateText(inputText, inputLanguage, outputLanguage);
+
+        // Getting the translated text
+        final String translatedText = translationResult.get(Constants.TEXT_KEY);
+
+        // Creating new variables for the switch
+
+        // switching.
+        final Map<String, String> switchedResult = new HashMap<>();
+        switchedResult.put(Constants.TEXT_KEY, translatedText);
+
+        if ("English (British)".equals(outputLanguage) || "English (American)".equals(outputLanguage)) {
+            final String newOutputLanguage = new String("English");
+            switchedResult.put(Constants.LANGUAGE_KEY, newOutputLanguage);
+        }
+        else if ("Portuguese (Brazilian)".equals(outputLanguage) || "Portuguese (European)".equals(outputLanguage)) {
+            final String newOutputLanguage = new String("Portuguese");
+            switchedResult.put(Constants.LANGUAGE_KEY, newOutputLanguage);
+        }
+        else if ("Chinese (simplified)".equals(outputLanguage)) {
+            final String newOutputLanguage = new String("Chinese");
+            switchedResult.put(Constants.LANGUAGE_KEY, newOutputLanguage);
+        }
+        else {
+            switchedResult.put(Constants.LANGUAGE_KEY, outputLanguage);
+        }
+
+        switchedResult.put("translatedText", inputText);
+
+        if ("English".equals(inputLanguage)) {
+            final String newInputLanguage = new String("English (American)");
+            switchedResult.put("outputLanguage", newInputLanguage);
+        }
+        else if ("Chinese".equals(inputLanguage)) {
+            final String newInputLanguage = new String("Chinese (simplified)");
+            switchedResult.put("outputLanguage", newInputLanguage);
+        }
+        else if ("Portuguese".equals(inputLanguage)) {
+            final String newInputLanguage = new String("Portuguese (Brazilian)");
+            switchedResult.put("outputLanguage", newInputLanguage);
+        }
+        else {
+            switchedResult.put("outputLanguage", inputLanguage);
+        }
+
+        return switchedResult;
+    }
+
 }

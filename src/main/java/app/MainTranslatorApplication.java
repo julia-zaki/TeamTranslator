@@ -1,6 +1,8 @@
 package app;
 
+import data_access.DBImageUploadDataAccessObject;
 import data_access.DBTranslateTextDataAccessObject;
+import use_case.imageUpload.ImageUploadDataAccessInterface;
 import use_case.translateText.TranslateTextDataAccessInterface;
 
 /**
@@ -19,10 +21,13 @@ public class MainTranslatorApplication {
 
         // create the data access and inject it into our builder!
         final TranslateTextDataAccessInterface translateTextDataAccess = new DBTranslateTextDataAccessObject();
+        final ImageUploadDataAccessInterface imageUploadDataAccess = new DBImageUploadDataAccessObject();
 
         final app.TranslateTextAppBuilder builder = new app.TranslateTextAppBuilder();
         builder.addTranslateTextDAO(translateTextDataAccess)
+                .addImageUploadDAO(imageUploadDataAccess)
                 .addTranslateTextView()
-                .addTranslateTextUseCase().build().setVisible(true);
+                .addTranslateTextUseCase()
+                .addImageUploadUseCase().build().setVisible(true);
     }
 }
