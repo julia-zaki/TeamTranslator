@@ -3,15 +3,11 @@ package app;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
-import entity.FileTranslator;
 import entity.TextTranslator;
 import interface_adapter.imageUpload.ImageUploadController;
 import interface_adapter.imageUpload.ImageUploadPresenter;
 import interface_adapter.switchTranslation.SwitchTranslationController;
 import interface_adapter.switchTranslation.SwitchTranslationPresenter;
-import interface_adapter.translateFile.TranslateFileController;
-import interface_adapter.translateFile.TranslateFilePresenter;
-import interface_adapter.translateFile.TranslateFileViewModel;
 import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextPresenter;
 import interface_adapter.translateText.TranslateTextViewModel;
@@ -21,13 +17,9 @@ import use_case.imageUpload.ImageUploadOutputBoundary;
 import use_case.switchTranslation.SwitchTranslationDataAccessInterface;
 import use_case.switchTranslation.SwitchTranslationInteractor;
 import use_case.switchTranslation.SwitchTranslationOutputBoundary;
-import use_case.translateFile.TranslateFileDataAccessInterface;
-import use_case.translateFile.TranslateFileInteractor;
-import use_case.translateFile.TranslateFileOutputBoundary;
 import use_case.translateText.TranslateTextDataAccessInterface;
 import use_case.translateText.TranslateTextInteractor;
 import use_case.translateText.TranslateTextOutputBoundary;
-import view.TranslateFileView;
 import view.TranslateTextView;
 
 /**

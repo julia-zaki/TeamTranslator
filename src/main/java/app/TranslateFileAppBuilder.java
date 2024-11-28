@@ -17,7 +17,7 @@ import view.TranslateFileView;
  */
 
 public class TranslateFileAppBuilder {
-    public static final int HEIGHT = 700;
+    public static final int HEIGHT = 500;
     public static final int WIDTH = 800;
     private TranslateFileDataAccessInterface translateFileDAO;
     private TranslateFileViewModel translateFileViewModel = new TranslateFileViewModel();
@@ -73,13 +73,10 @@ public class TranslateFileAppBuilder {
      */
     public JFrame build() {
         final JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("Translator Application - File Translation");
         frame.setSize(WIDTH, HEIGHT);
-
         frame.add(translateFileView);
 
         return frame;
-
     }
 }

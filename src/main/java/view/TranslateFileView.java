@@ -42,7 +42,6 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
     private static final Font FILEBUTTONS_FONT = new Font("Arial", Font.PLAIN, 25);
     private static final Color UPLOADBUTTON_COLOR = new Color(47, 237, 149);
     private static final Color DOWNLOADBUTTON_COLOR = new Color(170, 98, 209);
-    private static final Color SWITCH_MAIN_COLOR = new Color(188, 199, 246);
 
     private final TranslateFileViewModel translateFileViewModel;
 
@@ -51,25 +50,12 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
     private final JFileChooser translateFileOutputField = new JFileChooser();
     private final TranslateFileDataAccessInterface translateFileDai = new DBTranslateFileDataAccessObject();
     private final List<String> inputLanguages;
-
-    {
-        try {
-            inputLanguages = translateFileDai.getInputLanguages();
-            outputLanguages = translateFileDai.getOutputLanguages(null);
-        }
-        catch (DataAccessException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private final JComboBox inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
     private final List<String> outputLanguages;
-
-    private final JComboBox outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
+    private final JComboBox inputLanguageComboBox;
+    private final JComboBox outputLanguageComboBox;
 
     private final JButton uploadButton = new JButton("Upload File");
     private final JButton downloadButton = new JButton("Download Translated File");
-    private final JButton switchMain = new JButton("Back To Main");
     private TranslateFileController translateFileController;
     private final TranslateFileState translateFileState = new TranslateFileState();
 
@@ -79,6 +65,21 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
         this.translateFileViewModel = translateFileViewModel;
         this.translateFileViewModel.addPropertyChangeListener(this);
 
+        try {
+            inputLanguages = translateFileDai.getInputLanguages();
+            outputLanguages = translateFileDai.getOutputLanguages(null);
+        }
+        catch (DataAccessException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
+        inputLanguageComboBox.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.OMEGA));
+        inputLanguageComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+        outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
+        outputLanguageComboBox.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.OMEGA));
+        outputLanguageComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         final JPanel filebuttons = new JPanel();
         uploadButton.setPreferredSize(BUTTONS_DIM);
         uploadButton.setBackground(UPLOADBUTTON_COLOR);
@@ -86,12 +87,8 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
         downloadButton.setPreferredSize(BUTTONS_DIM);
         downloadButton.setBackground(DOWNLOADBUTTON_COLOR);
         downloadButton.setFont(FILEBUTTONS_FONT);
-        switchMain.setPreferredSize(BUTTONS_DIM);
-        switchMain.setBackground(SWITCH_MAIN_COLOR);
-        switchMain.setFont(FILEBUTTONS_FONT);
         filebuttons.add(uploadButton);
         filebuttons.add(downloadButton);
-        filebuttons.add(switchMain);
 
         uploadButton.addActionListener(
                 this::fileUploadRequest

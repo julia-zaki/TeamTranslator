@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import data_access.DBTranslateFileDataAccessObject;
 import interface_adapter.imageUpload.ImageUploadController;
 import interface_adapter.switchTranslation.SwitchTranslationController;
 import interface_adapter.translateText.TranslateState;
@@ -111,6 +112,17 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
                         translateTextController.execute(inputLanguageComboBox.getSelectedItem().toString(),
                                 translateInputField.getText(), (String) outputLanguageComboBox.getSelectedItem()
                                         .toString());
+                    }
+                }
+        );
+
+        fileButton.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(fileButton)) {
+                        final app.TranslateFileAppBuilder fileBuilder = new app.TranslateFileAppBuilder();
+                        fileBuilder.addTranslateFileDAO(new DBTranslateFileDataAccessObject())
+                                .addTranslateFileView()
+                                .addTranslateFileUseCase().build().setVisible(true);
                     }
                 }
         );
