@@ -7,6 +7,7 @@ import use_case.imageUpload.ImageUploadDataAccessInterface;
 import use_case.switchTranslation.SwitchTranslationDataAccessInterface;
 import use_case.translateFile.TranslateFileDataAccessInterface;
 import use_case.translateText.TranslateTextDataAccessInterface;
+import view.ViewManager;
 
 /**
  * An application where we can translate text.
@@ -32,12 +33,14 @@ public class MainTranslatorApplication {
         builder.addTranslateTextDAO(translateTextDataAccess)
                 .addImageUploadDAO(imageUploadDataAccess)
                 .addSwitchTranslationDAO(switchTranslationDataAccess)
-                .addTranslateFileDAO(translateFileDataAccess)
-                .addTranslateFileView()
                 .addTranslateTextView()
-                .addTranslateFileUseCase()
                 .addTranslateTextUseCase()
                 .addSwitchTranslationUseCase()
                 .addImageUploadUseCase().build().setVisible(true);
+
+        final app.TranslateFileAppBuilder fileBuilder = new app.TranslateFileAppBuilder();
+        fileBuilder.addTranslateFileDAO(translateFileDataAccess)
+                .addTranslateFileView()
+                .addTranslateFileUseCase().build().setVisible(false);
     }
 }

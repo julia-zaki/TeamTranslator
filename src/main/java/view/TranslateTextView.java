@@ -207,4 +207,5 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     public void setSwitchTranslationController(SwitchTranslationController switchTranslationController) {
         this.switchTranslationController = switchTranslationController;
     }
+
 }

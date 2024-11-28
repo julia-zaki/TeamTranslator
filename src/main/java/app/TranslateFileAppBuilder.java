@@ -17,8 +17,8 @@ import view.TranslateFileView;
  */
 
 public class TranslateFileAppBuilder {
-    public static final int HEIGHT = 300;
-    public static final int WIDTH = 400;
+    public static final int HEIGHT = 700;
+    public static final int WIDTH = 800;
     private TranslateFileDataAccessInterface translateFileDAO;
     private TranslateFileViewModel translateFileViewModel = new TranslateFileViewModel();
     private TranslateFileView translateFileView;
