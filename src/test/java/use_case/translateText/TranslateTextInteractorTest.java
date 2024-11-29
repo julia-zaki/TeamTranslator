@@ -12,10 +12,9 @@ public class TranslateTextInteractorTest {
     @Test
     public void ExecuteSuccessTest() {
 
-        TranslateTextInputData inputData = new TranslateTextInputData("English", "Hello", "French");
-        TextTranslator textTranslator = new TextTranslator();
-
         TranslateTextDataAccessInterface translateTextDAO = new DBTranslateTextDataAccessObject();
+        TranslateTextInputData inputData = new TranslateTextInputData("English", "Hello", "French");
+        TextTranslator textTranslator = new TextTranslator(translateTextDAO);
 
         use_case.translateText.TranslateTextOutputBoundary translateTextOB = new use_case.translateText.TranslateTextOutputBoundary() {
             @Override
@@ -39,10 +38,9 @@ public class TranslateTextInteractorTest {
 
     @Test
     public void failureLanguageDoesNotExistTest() {
-        TranslateTextInputData inputData = new TranslateTextInputData("unknown", "Hello", "French");
-        TextTranslator textTranslator = new TextTranslator();
-
         TranslateTextDataAccessInterface translateTextDAO = new DBTranslateTextDataAccessObject();
+        TranslateTextInputData inputData = new TranslateTextInputData("unknown", "Hello", "French");
+        TextTranslator textTranslator = new TextTranslator(translateTextDAO);
 
         use_case.translateText.TranslateTextOutputBoundary translateTextOB = new use_case.translateText.TranslateTextOutputBoundary() {
             @Override

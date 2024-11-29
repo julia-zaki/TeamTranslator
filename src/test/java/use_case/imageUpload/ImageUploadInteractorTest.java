@@ -35,7 +35,7 @@ public class ImageUploadInteractorTest {
              */
             @Override
             public void prepareSuccessView(ImageUploadOutputData imageUploadOutputData) {
-                assertEquals("test", imageUploadOutputData.getInputText());
+                assertEquals("test", imageUploadOutputData.getImageText());
             }
 
             /**
