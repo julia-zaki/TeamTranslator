@@ -65,13 +65,8 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
         this.translateFileViewModel = translateFileViewModel;
         this.translateFileViewModel.addPropertyChangeListener(this);
 
-        try {
-            inputLanguages = translateFileDai.getInputLanguages();
-            outputLanguages = translateFileDai.getOutputLanguages(null);
-        }
-        catch (DataAccessException ex) {
-            throw new RuntimeException(ex);
-        }
+        inputLanguages = translateFileDai.getInputLanguages();
+        outputLanguages = translateFileDai.getOutputLanguages(null);
 
         inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
         inputLanguageComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);

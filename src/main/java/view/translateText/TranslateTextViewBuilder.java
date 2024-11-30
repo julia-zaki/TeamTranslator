@@ -60,13 +60,9 @@ public class TranslateTextViewBuilder {
         if (translateTextDAO == null) {
             throw new RuntimeException("addLanguages must be called after addDAO");
         }
-        try {
-            inputLanguages = translateTextDAO.getInputLanguages();
-            outputLanguages = translateTextDAO.getOutputLanguages(null);
-        }
-        catch (DataAccessException ex) {
-            System.out.println(ex.getMessage());
-        }
+        inputLanguages = translateTextDAO.getInputLanguages();
+        outputLanguages = translateTextDAO.getOutputLanguages(null);
+
         return this;
     }
 

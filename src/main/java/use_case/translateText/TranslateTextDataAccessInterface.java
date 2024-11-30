@@ -24,17 +24,15 @@ public interface TranslateTextDataAccessInterface {
     /**
      * Return all possible input languages available for translation.
      * @return the list of input languages
-     * @throws DataAccessException if the input languages could not be retrieved for any reason
      */
-    List<String> getInputLanguages() throws DataAccessException;
+    List<String> getInputLanguages();
 
     /**
      * Return all possible output languages for the given input language.
      * If the input language is null, return the list of all possible output languages.
      * @param inputLanguage the input language
      * @return the list of output languages
-     * @throws DataAccessException if the output languages could not be retrieved for any reason
      */
-    List<String> getOutputLanguages(String inputLanguage) throws DataAccessException;
+    List<String> getOutputLanguages(String inputLanguage);
 
 }
