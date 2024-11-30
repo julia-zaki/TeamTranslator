@@ -33,5 +33,6 @@ public class MainTranslatorApplication {
                 .addTranslateTextUseCase()
                 .addSwitchTranslationUseCase()
                 .addImageUploadUseCase().build().setVisible(true);
+
     }
 }

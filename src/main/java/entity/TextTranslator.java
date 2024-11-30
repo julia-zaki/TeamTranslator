@@ -21,6 +21,10 @@ public class TextTranslator {
         this.dataAccessObject = dataAccessObject;
     }
 
+    public TextTranslator() {
+        this.dataAccessObject = null;
+    }
+
     public void setInputLanguage(String inputLanguage) {
         this.inputLanguage = inputLanguage;
     }
