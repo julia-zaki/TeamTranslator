@@ -26,6 +26,7 @@ public class TranslateTextViewBuilder {
     private JTextArea translateInputField;
     private JTextArea translateOutputField;
     private JComboBox<String> inputLanguageComboBox;
+    private JComboBox<String> outputLanguageComboBox;
     private List<String> inputLanguages = new ArrayList<>();
     private List<String> outputLanguages = new ArrayList<>();
     private TranslateTextView view;
@@ -102,6 +103,7 @@ public class TranslateTextViewBuilder {
         outputPanel.getLanguageComboBox().setAlignmentX(Component.LEFT_ALIGNMENT);
         outputPanel.getTextArea().setEditable(false);
         translateOutputField = outputPanel.getTextArea();
+        outputLanguageComboBox = outputPanel.getLanguageComboBox();
         return this;
     }
 
@@ -123,7 +125,8 @@ public class TranslateTextViewBuilder {
         translateTextViewModel.addPropertyChangeListener(view);
 
         view = new TranslateTextView(translateTextViewModel);
-        view.setObservableComponents(translateOutputField, inputLanguageComboBox, translateInputField);
+        view.setObservableComponents(translateOutputField, inputLanguageComboBox,
+                outputLanguageComboBox, translateInputField);
         view.setButtonPanel(buttonPanel);
         view.setLayout(new FlowLayout());
 
