@@ -8,7 +8,7 @@ public class TranslateState {
     private String outputText = "";
     private String error;
     private String inputLanguage = "Detect Language";
-    private String outputLanguage;
+    private String outputLanguage = "";
 
     public String getInputText() {
         return inputText;
