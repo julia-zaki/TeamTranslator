@@ -20,7 +20,8 @@ import use_case.switchTranslation.SwitchTranslationOutputBoundary;
 import use_case.translateText.TranslateTextDataAccessInterface;
 import use_case.translateText.TranslateTextInteractor;
 import use_case.translateText.TranslateTextOutputBoundary;
-import view.TranslateTextView;
+import view.translateText.TranslateTextView;
+import view.translateText.TranslateTextViewBuilder;
 
 /**
  * Builder for the Translator Application.
@@ -33,9 +34,6 @@ public class TranslateTextAppBuilder {
     private SwitchTranslationDataAccessInterface switchTranslationDAO;
     private TranslateTextViewModel translateTextViewModel = new TranslateTextViewModel();
     private TranslateTextView translateTextView;
-    private TranslateTextInteractor translateTextInteractor;
-    private ImageUploadInteractor imageUploadInteractor;
-    private SwitchTranslationInteractor switchTranslationInteractor;
 
     /**
      * Sets the translatetextDAO to be used in this application.
@@ -59,7 +57,8 @@ public class TranslateTextAppBuilder {
                 new TranslateTextPresenter(translateTextViewModel);
         final TextTranslator textTranslator = new TextTranslator(translateTextDAO);
 
-        translateTextInteractor = new TranslateTextInteractor(translateTextDAO, translateTextOutputBoundary,
+        final TranslateTextInteractor translateTextInteractor = new TranslateTextInteractor(translateTextDAO,
+                translateTextOutputBoundary,
                 textTranslator);
 
         final TranslateTextController controller = new TranslateTextController(translateTextInteractor);
@@ -91,7 +90,8 @@ public class TranslateTextAppBuilder {
         final ImageUploadOutputBoundary imageUploadOutputBoundary =
                 new ImageUploadPresenter(translateTextViewModel);
 
-        imageUploadInteractor = new ImageUploadInteractor(imageUploadDAO, imageUploadOutputBoundary);
+        final ImageUploadInteractor imageUploadInteractor = new ImageUploadInteractor(imageUploadDAO,
+                imageUploadOutputBoundary);
 
         final ImageUploadController controller = new ImageUploadController(imageUploadInteractor);
         if (translateTextView == null) {
@@ -123,8 +123,8 @@ public class TranslateTextAppBuilder {
         final SwitchTranslationOutputBoundary switchTranslationOutputBoundary =
                 new SwitchTranslationPresenter(translateTextViewModel);
 
-        switchTranslationInteractor = new SwitchTranslationInteractor(switchTranslationDAO,
-                switchTranslationOutputBoundary);
+        final SwitchTranslationInteractor switchTranslationInteractor = new SwitchTranslationInteractor(
+                switchTranslationDAO, switchTranslationOutputBoundary);
 
         final SwitchTranslationController controller = new SwitchTranslationController(switchTranslationInteractor);
         if (translateTextView == null) {
@@ -140,7 +140,18 @@ public class TranslateTextAppBuilder {
      */
     public TranslateTextAppBuilder addTranslateTextView() {
         translateTextViewModel = new TranslateTextViewModel();
-        translateTextView = new TranslateTextView(translateTextViewModel, translateTextDAO);
+
+        final TranslateTextViewBuilder builder = new TranslateTextViewBuilder();
+
+        translateTextView = builder
+                .addViewModel(translateTextViewModel)
+                .addDAO(translateTextDAO)
+                .addLanguages()
+                .addInputPanel()
+                .addOutputPanel()
+                .addButtonPanel()
+                .build();
+
         return this;
     }
 

@@ -2,12 +2,12 @@ package view;
 
 import data_access.DBTranslateTextDataAccessObject;
 import entity.TextTranslator;
-import interface_adapter.note.NoteViewModel;
 import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextPresenter;
 import interface_adapter.translateText.TranslateTextViewModel;
 import use_case.translateText.TranslateTextDataAccessInterface;
 import use_case.translateText.TranslateTextInteractor;
+import view.translateText.TranslateTextView;
 
 import javax.swing.*;
 
