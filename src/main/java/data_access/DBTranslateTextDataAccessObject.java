@@ -222,6 +222,9 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
     public Map<String, String> switchLanguagesAndTexts(String inputText, String inputLanguage, String outputLanguage)
             throws DataAccessException {
         // translating the text using the translateText method
+        final LanguageMapperInterface outputlanguageClass = GetLanguageClass.giveOutputLanguageClass(inputLanguage);
+        final LanguageMapperInterface inputlanguageClass = GetLanguageClass.giveInputLanguageClass(outputLanguage);
+
         final Map<String, String> translationResult = translateText(inputText, inputLanguage, outputLanguage);
 
         // Getting the translated text
@@ -231,41 +234,14 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
 
         // switching.
         final Map<String, String> switchedResult = new HashMap<>();
+
         switchedResult.put(Constants.TEXT_KEY, translatedText);
 
-        if ("English (British)".equals(outputLanguage) || "English (American)".equals(outputLanguage)) {
-            final String newOutputLanguage = new String("English");
-            switchedResult.put(Constants.LANGUAGE_KEY, newOutputLanguage);
-        }
-        else if ("Portuguese (Brazilian)".equals(outputLanguage) || "Portuguese (European)".equals(outputLanguage)) {
-            final String newOutputLanguage = new String("Portuguese");
-            switchedResult.put(Constants.LANGUAGE_KEY, newOutputLanguage);
-        }
-        else if ("Chinese (simplified)".equals(outputLanguage)) {
-            final String newOutputLanguage = new String("Chinese");
-            switchedResult.put(Constants.LANGUAGE_KEY, newOutputLanguage);
-        }
-        else {
-            switchedResult.put(Constants.LANGUAGE_KEY, outputLanguage);
-        }
+        switchedResult.put(Constants.LANGUAGE_KEY, inputlanguageClass.giveInput(outputLanguage));
 
         switchedResult.put("translatedText", inputText);
 
-        if ("English".equals(inputLanguage)) {
-            final String newInputLanguage = new String("English (American)");
-            switchedResult.put("outputLanguage", newInputLanguage);
-        }
-        else if ("Chinese".equals(inputLanguage)) {
-            final String newInputLanguage = new String("Chinese (simplified)");
-            switchedResult.put("outputLanguage", newInputLanguage);
-        }
-        else if ("Portuguese".equals(inputLanguage)) {
-            final String newInputLanguage = new String("Portuguese (Brazilian)");
-            switchedResult.put("outputLanguage", newInputLanguage);
-        }
-        else {
-            switchedResult.put("outputLanguage", inputLanguage);
-        }
+        switchedResult.put("outputLanguage", outputlanguageClass.giveOutput(inputLanguage));
 
         return switchedResult;
     }
