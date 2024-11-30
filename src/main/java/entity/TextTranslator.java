@@ -3,7 +3,6 @@ package entity;
 import java.util.Map;
 
 import data_access.Constants;
-import data_access.DBTranslateTextDataAccessObject;
 import use_case.translateText.DataAccessException;
 import use_case.translateText.TranslateTextDataAccessInterface;
 
@@ -12,14 +11,14 @@ import use_case.translateText.TranslateTextDataAccessInterface;
  */
 public class TextTranslator {
 
-    private final TranslateTextDataAccessInterface dataAccessObject = new DBTranslateTextDataAccessObject();
+    private final TranslateTextDataAccessInterface dataAccessObject;
     private String inputText;
     private String inputLanguage;
     private String outputLanguage;
     private String outputText;
 
-    public TextTranslator() {
-
+    public TextTranslator(TranslateTextDataAccessInterface dataAccessObject) {
+        this.dataAccessObject = dataAccessObject;
     }
 
     public void setInputLanguage(String inputLanguage) {
