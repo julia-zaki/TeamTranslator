@@ -3,7 +3,7 @@ package view.translateText;
 /**
  * Mock controller. Replace this class with actual controller.
  */
-public class TextToSpeechController {
+public class MockTextToSpeechController {
 
     /**
      * Mock execute method.

@@ -23,7 +23,7 @@ public class TranslateTextViewTextPanel extends JPanel {
     private final JComboBox<String> languageComboBox;
     private final JTextArea textArea;
     private JButton speakerButton;
-    private TextToSpeechController textToSpeechController;
+    private MockTextToSpeechController textToSpeechController;
 
     public TranslateTextViewTextPanel(List<String> languages) {
 
@@ -85,7 +85,7 @@ public class TranslateTextViewTextPanel extends JPanel {
         });
     }
 
-    public void setTextToSpeechController(TextToSpeechController textToSpeechController) {
+    public void setTextToSpeechController(MockTextToSpeechController textToSpeechController) {
         this.textToSpeechController = textToSpeechController;
     }
 

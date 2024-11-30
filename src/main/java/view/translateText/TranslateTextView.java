@@ -121,7 +121,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
      * Injects TextToSpeechController into speaker button.
      * @param textToSpeechController the controller for TextToSpeech Use Case
      */
-    public void setTextToSpeechController(TextToSpeechController textToSpeechController) {
+    public void setTextToSpeechController(MockTextToSpeechController textToSpeechController) {
         inputPanel.setTextToSpeechController(textToSpeechController);
         outputPanel.setTextToSpeechController(textToSpeechController);
     }
