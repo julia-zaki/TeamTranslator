@@ -29,7 +29,7 @@ public class TranslateTextViewTextPanel extends JPanel {
         this.setPreferredSize(new Dimension(Constants.PANEL_WIDTH, Constants.PANEL_HEIGHT));
 
         // Create combobox to select language
-        languageComboBox = new JComboBox<>((String[]) languages.toArray());
+        languageComboBox = new JComboBox(languages.toArray());
         languageComboBox.setPreferredSize(new Dimension(Constants.PANEL_WIDTH, Constants.COMBOBOX_HEIGHT));
 
         // Create text area in scroll pane
