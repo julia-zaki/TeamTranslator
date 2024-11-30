@@ -10,11 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.deepl.api.Translator;
 import org.json.JSONArray;
 
 import com.deepl.api.DeepLException;
 import com.deepl.api.Language;
+import com.deepl.api.Translator;
 import use_case.translateText.DataAccessException;
 
 /**
@@ -149,11 +149,15 @@ public class DeeplTranslator {
         return translator;
     }
 
+    protected String getAuthKey() {
+        return AUTH_KEY;
+    }
+
     /**
      * Return all possible input languages available for translation.
      * @return the list of input languages
      */
-    protected List<String> getInputLanguages() {
+    public List<String> getInputLanguages() {
         return inputLanguages;
     }
 
@@ -164,7 +168,7 @@ public class DeeplTranslator {
      * @param inputLanguage the input language
      * @return the list of output languages
      */
-    protected List<String> getOutputLanguages(String inputLanguage) {
+    public List<String> getOutputLanguages(String inputLanguage) {
         return outputLanguages;
     }
 }

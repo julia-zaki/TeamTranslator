@@ -85,6 +85,7 @@ public class TranslateTextViewButtonPanel extends JPanel {
              */
             @Override
             public void actionPerformed(ActionEvent evt) {
+                // Save the current input text so it does not get overriden
                 if (evt.getSource().equals(imageButton)) {
                     final JFileChooser fileChooser = new JFileChooser();
                     final FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Image Files",

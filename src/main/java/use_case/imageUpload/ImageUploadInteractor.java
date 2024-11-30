@@ -17,9 +17,13 @@ public class ImageUploadInteractor implements ImageUploadInputBoundary {
     }
 
     /**
-     * Executes the Image Upload Use Case.
+     * Executes the Image Upload Use Case given ImageUploadInputData which contains imageFile and inputText.
+     * InputText is passed to keep the text previously entered in the input text field.
+     * Any text detected from the image will be concatenated with inputText on a new line.
+     * The presenter will prepare a fail view if the given file does not exist, if no text
+     * is detected in the image, or if a DataAccessException is thrown.
      *
-     * @param imageUploadInputData the input data.
+     * @param imageUploadInputData the input data containing imageFile and inputText
      */
     @Override
     public void execute(ImageUploadInputData imageUploadInputData) {

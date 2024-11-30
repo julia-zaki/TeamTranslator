@@ -58,27 +58,6 @@ public class DBTranslateTextDataAccessObject extends DeeplTranslator implements 
     }
 
     /**
-     * Return all possible input languages available for translation.
-     * @return the list of input languages
-     */
-    @Override
-    public List<String> getInputLanguages() {
-        return super.getInputLanguages();
-    }
-
-    /**
-     * Return all possible output languages for the given input language.
-     * If the input language is null, return the list of all possible output languages.
-     *
-     * @param inputLanguage the input language
-     * @return the list of output languages
-     */
-    @Override
-    public List<String> getOutputLanguages(String inputLanguage) {
-        return super.getOutputLanguages(inputLanguage);
-    }
-
-    /**
      * Switch the input language to be the output language and vice versa. Switch the input text to be the output
      * text and vice versa
      *

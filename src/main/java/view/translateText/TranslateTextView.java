@@ -14,7 +14,6 @@ import interface_adapter.imageUpload.ImageUploadController;
 import interface_adapter.switchTranslation.SwitchTranslationController;
 import interface_adapter.translateText.TranslateState;
 import interface_adapter.translateText.TranslateTextController;
-import interface_adapter.translateText.TranslateTextViewModel;
 
 /**
  * The View for when the user is translating.
