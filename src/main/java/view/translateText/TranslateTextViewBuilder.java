@@ -128,6 +128,8 @@ public class TranslateTextViewBuilder {
         view.setObservableComponents(translateOutputField, inputLanguageComboBox,
                 outputLanguageComboBox, translateInputField);
         view.setButtonPanel(buttonPanel);
+        view.setInputPanel(inputPanel);
+        view.setOutputPanel(outputPanel);
         view.setLayout(new FlowLayout());
 
         view.add(inputPanel);

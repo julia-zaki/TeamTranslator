@@ -27,6 +27,8 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private JComboBox<String> outputLanguageComboBox;
 
     private TranslateTextViewButtonPanel buttonPanel;
+    private TranslateTextViewTextPanel inputPanel;
+    private TranslateTextViewTextPanel outputPanel;
 
     public TranslateTextView(TranslateTextViewModel translateTextViewModel) {
 
@@ -82,6 +84,14 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
         this.buttonPanel = buttonPanel;
     }
 
+    public void setInputPanel(TranslateTextViewTextPanel inputPanel) {
+        this.inputPanel = inputPanel;
+    }
+
+    public void setOutputPanel(TranslateTextViewTextPanel outputPanel) {
+        this.outputPanel = outputPanel;
+    }
+
     /**
      * Injects TranslateText controller into textButton.
      * @param translateTextcontroller the controller for TranslateText Use Case
@@ -105,6 +115,15 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
      */
     public void setSwitchTranslationController(SwitchTranslationController switchTranslationController) {
         buttonPanel.setSwitchTranslationController(switchTranslationController);
+    }
+
+    /**
+     * Injects TextToSpeechController into speaker button.
+     * @param textToSpeechController the controller for TextToSpeech Use Case
+     */
+    public void setTextToSpeechController(TextToSpeechController textToSpeechController) {
+        inputPanel.setTextToSpeechController(textToSpeechController);
+        outputPanel.setTextToSpeechController(textToSpeechController);
     }
 
 }
