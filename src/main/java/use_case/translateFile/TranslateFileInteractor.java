@@ -54,7 +54,7 @@ public class TranslateFileInteractor implements TranslateFileInputBoundary {
                 fileTranslator.setDocumentKey();
                 fileTranslator.setStatus(fileTranslator.getDocumentID(), fileTranslator.getDocumentKey());
                 final TranslateFileOutputData translateFileOutputData = new TranslateFileOutputData(
-                        fileTranslator.getOutputFile(), fileTranslator.getInputLanguage());
+                        fileTranslator.getOutputFile());
                 translateFileOutputBoundary.prepareSuccessView(translateFileOutputData);
             }
         }
@@ -76,7 +76,7 @@ public class TranslateFileInteractor implements TranslateFileInputBoundary {
                 fileTranslator.setOutputFile(dataAccessObject.downloadDocument(fileTranslator.getDocumentID(),
                         fileTranslator.getDocumentKey()));
                 final TranslateFileOutputData translateFileOutputData = new TranslateFileOutputData(
-                        fileTranslator.getOutputFile(), fileTranslator.getInputLanguage());
+                        fileTranslator.getOutputFile());
                 translateFileOutputBoundary.prepareSuccessView(translateFileOutputData);
             }
         }
