@@ -74,6 +74,7 @@ public class TranslateFileAppBuilder {
     public JFrame build() {
         final JFrame frame = new JFrame();
         frame.setTitle("Translator Application - File Translation");
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setSize(WIDTH, HEIGHT);
         frame.add(translateFileView);
 

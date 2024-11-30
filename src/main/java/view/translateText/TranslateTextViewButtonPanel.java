@@ -7,10 +7,13 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import app.TranslateFileAppBuilder;
+import data_access.DBTranslateFileDataAccessObject;
 import interface_adapter.imageUpload.ImageUploadController;
 import interface_adapter.switchTranslation.SwitchTranslationController;
 import interface_adapter.translateText.TranslateTextController;
@@ -28,6 +31,9 @@ public class TranslateTextViewButtonPanel extends JPanel {
     private final JButton switchButton = new JButton("Switch");
     private final JButton imageButton = new JButton("Image Upload");
     private final TranslateTextView view;
+    private final TranslateFileAppBuilder translateFileAppBuilder = new TranslateFileAppBuilder();
+    private final JFrame fileFrame = translateFileAppBuilder.addTranslateFileDAO(new DBTranslateFileDataAccessObject())
+            .addTranslateFileView().addTranslateFileUseCase().build();
     private final TranslateTextViewTextPanel inputPanel;
     private final TranslateTextViewTextPanel outputPanel;
     private TranslateTextController translateTextController;
@@ -45,6 +51,7 @@ public class TranslateTextViewButtonPanel extends JPanel {
         addTextButtonListener();
         addImageButtonListener();
         addSwitchButtonListener();
+        addFileButtonListener();
 
         this.view = view;
         this.inputPanel = inputPanel;
@@ -108,6 +115,15 @@ public class TranslateTextViewButtonPanel extends JPanel {
             final Object outputLang = outputPanel.getLanguageComboBox().getSelectedItem();
 
             switchTranslationController.execute(inputText, inputLang.toString(), outputLang.toString());
+        });
+    }
+
+    /**
+     * Creates and injects an action listener into fileButton.
+     */
+    public void addFileButtonListener() {
+        fileButton.addActionListener(evt -> {
+            fileFrame.setVisible(true);
         });
     }
 
