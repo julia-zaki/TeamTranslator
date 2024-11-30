@@ -74,10 +74,8 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
         }
 
         inputLanguageComboBox = new JComboBox(inputLanguages.toArray());
-        inputLanguageComboBox.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.OMEGA));
         inputLanguageComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
         outputLanguageComboBox = new JComboBox(outputLanguages.toArray());
-        outputLanguageComboBox.setPreferredSize(new Dimension(MagicNumber.ALPHA, MagicNumber.OMEGA));
         outputLanguageComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel filebuttons = new JPanel();
