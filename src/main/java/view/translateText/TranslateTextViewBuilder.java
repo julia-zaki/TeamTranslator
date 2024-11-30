@@ -118,9 +118,9 @@ public class TranslateTextViewBuilder {
      * @return an instance of TranslateTextView
      */
     public TranslateTextView build() {
-        translateTextViewModel.addPropertyChangeListener(view);
 
-        view = new TranslateTextView(translateTextViewModel);
+        view = new TranslateTextView();
+        translateTextViewModel.addPropertyChangeListener(view);
         view.setObservableComponents(translateOutputField, inputLanguageComboBox,
                 outputLanguageComboBox, translateInputField);
         view.setButtonPanel(buttonPanel);

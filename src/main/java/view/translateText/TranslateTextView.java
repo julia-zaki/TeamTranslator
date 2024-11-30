@@ -30,10 +30,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private TranslateTextViewTextPanel inputPanel;
     private TranslateTextViewTextPanel outputPanel;
 
-    public TranslateTextView(TranslateTextViewModel translateTextViewModel) {
-
-        translateTextViewModel.addPropertyChangeListener(this);
-
+    public TranslateTextView() {
     }
 
     /**
