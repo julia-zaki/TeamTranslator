@@ -20,6 +20,7 @@ import use_case.switchTranslation.SwitchTranslationOutputBoundary;
 import use_case.translateText.TranslateTextDataAccessInterface;
 import use_case.translateText.TranslateTextInteractor;
 import use_case.translateText.TranslateTextOutputBoundary;
+import view.translateText.MockTextToSpeechController;
 import view.translateText.TranslateTextView;
 import view.translateText.TranslateTextViewBuilder;
 
@@ -131,6 +132,12 @@ public class TranslateTextAppBuilder {
             throw new RuntimeException("addTranslateTextView must be called before addSwitchTranslationUseCase");
         }
         translateTextView.setSwitchTranslationController(controller);
+        return this;
+    }
+
+    public TranslateTextAppBuilder addTextToSpeechUseCase() {
+        final MockTextToSpeechController testController = new MockTextToSpeechController();
+        translateTextView.setTextToSpeechController(testController);
         return this;
     }
 

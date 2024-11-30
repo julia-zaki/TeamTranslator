@@ -32,7 +32,9 @@ public class MainTranslatorApplication {
                 .addTranslateTextView()
                 .addTranslateTextUseCase()
                 .addSwitchTranslationUseCase()
-                .addImageUploadUseCase().build().setVisible(true);
+                .addImageUploadUseCase()
+                .addTextToSpeechUseCase()
+                .build().setVisible(true);
 
     }
 }
