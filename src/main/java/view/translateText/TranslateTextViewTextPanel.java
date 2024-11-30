@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import interface_adapter.textToSpeech.TextToSpeechController;
 import view.Constants;
 
 /**
@@ -23,7 +24,7 @@ public class TranslateTextViewTextPanel extends JPanel {
     private final JComboBox<String> languageComboBox;
     private final JTextArea textArea;
     private JButton speakerButton;
-    private MockTextToSpeechController textToSpeechController;
+    private TextToSpeechController textToSpeechController;
 
     public TranslateTextViewTextPanel(List<String> languages) {
 
@@ -80,12 +81,12 @@ public class TranslateTextViewTextPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO: replace with speaker button functionality using textToSpeechController
-                textToSpeechController.execute();
+                textToSpeechController.execute(textArea.getText());
             }
         });
     }
 
-    public void setTextToSpeechController(MockTextToSpeechController textToSpeechController) {
+    public void setTextToSpeechController(TextToSpeechController textToSpeechController) {
         this.textToSpeechController = textToSpeechController;
     }
 
