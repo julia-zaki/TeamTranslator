@@ -112,10 +112,13 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
             final int result = translateFileInputField.showOpenDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {
                 translateFileState.setInputFile(translateFileInputField.getSelectedFile());
+                translateFileState.setInputLanguage(inputLanguageComboBox.getSelectedItem().toString());
+                translateFileState.setOutputLanguage(outputLanguageComboBox.getSelectedItem().toString());
+                setFields(translateFileState);
                 JOptionPane.showMessageDialog(null,
                         "Selected File: " + translateFileState.getInputFile().getAbsolutePath());
 
-                translateFileController.executeUpload(inputLanguageComboBox.getSelectedItem().toString(),
+                translateFileController.executeUpload(translateFileState.getInputLanguage(),
                         translateFileState.getInputFile(),
                         outputLanguageComboBox.getSelectedItem().toString());
             }
@@ -127,8 +130,8 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
 
             final Map<String, String> docInfo = translateFileDai.translateDocumentUpload(
                     translateFileState.getInputFile(),
-                    inputLanguageComboBox.getSelectedItem().toString(),
-                    outputLanguageComboBox.getSelectedItem().toString());
+                    translateFileState.getInputLanguage(),
+                    translateFileState.getOutputLanguage());
 
             final String docID = docInfo.get("document_id");
             final String docKey = docInfo.get("document_key");
@@ -139,6 +142,9 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
                 final File translatedFile = translateFileDai.downloadDocument(
                         docID, docKey);
                 translateFileState.setOutputFile(translatedFile);
+                translateFileState.setInputLanguage(inputLanguageComboBox.getSelectedItem().toString());
+                translateFileState.setOutputLanguage(outputLanguageComboBox.getSelectedItem().toString());
+                setFields(translateFileState);
 
                 translateFileOutputField.setDialogType(JFileChooser.SAVE_DIALOG);
                 translateFileOutputField.setApproveButtonText("Save");
@@ -194,7 +200,7 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
 
     private void setFields(TranslateFileState state) {
         translateFileOutputField.setSelectedFile(state.getOutputFile());
-        inputLanguageComboBox.setSelectedItem(state.getInputLanguage());
+        //inputLanguageComboBox.setSelectedItem(state.getInputLanguage());
     }
 
     public void setTranslateFileController(TranslateFileController controller) {

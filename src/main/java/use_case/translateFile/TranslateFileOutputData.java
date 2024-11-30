@@ -8,9 +8,11 @@ import java.io.File;
 public class TranslateFileOutputData {
 
     private final File outputFile;
+    private String inputLanguage;
 
-    public TranslateFileOutputData(File outputFile) {
+    public TranslateFileOutputData(File outputFile, String inputLanguage) {
         this.outputFile = outputFile;
+        this.inputLanguage = inputLanguage;
     }
 
     public File getOutputFile() {
