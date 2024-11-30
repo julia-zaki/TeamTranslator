@@ -24,6 +24,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private JTextArea translateInputField;
     private JTextArea translateOutputField;
     private JComboBox<String> inputLanguageComboBox;
+    private JComboBox<String> outputLanguageComboBox;
 
     private TranslateTextViewButtonPanel buttonPanel;
 
@@ -55,6 +56,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
 
         translateOutputField.setText(state.getOutputText());
         inputLanguageComboBox.setSelectedItem(state.getInputLanguage());
+        outputLanguageComboBox.setSelectedItem(state.getOutputLanguage());
         translateInputField.setText(state.getInputText());
 
     }
@@ -63,13 +65,16 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
      * Sets the components of TranslateTextView that are modified during the program.
      * @param outputTextArea text area where translated is displayed
      * @param inputComboBox combobox to select input language
+     * @param outputComboBox combobox to select input language
      * @param inputTextArea text where text is inputted
      */
     public void setObservableComponents(JTextArea outputTextArea,
                                          JComboBox<String> inputComboBox,
+                                         JComboBox<String> outputComboBox,
                                          JTextArea inputTextArea) {
         this.translateOutputField = outputTextArea;
         this.inputLanguageComboBox = inputComboBox;
+        this.outputLanguageComboBox = outputComboBox;
         this.translateInputField = inputTextArea;
     }
 
