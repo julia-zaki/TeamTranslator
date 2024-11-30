@@ -26,7 +26,6 @@ public class MainTranslatorApplication {
         final TranslateTextDataAccessInterface translateTextDataAccess = new DBTranslateTextDataAccessObject();
         final ImageUploadDataAccessInterface imageUploadDataAccess = new DBImageUploadDataAccessObject();
         final SwitchTranslationDataAccessInterface switchTranslationDataAccess = new DBTranslateTextDataAccessObject();
-        final TranslateFileDataAccessInterface translateFileDataAccess = new DBTranslateFileDataAccessObject();
 
         final app.TranslateTextAppBuilder builder = new app.TranslateTextAppBuilder();
         builder.addTranslateTextDAO(translateTextDataAccess)

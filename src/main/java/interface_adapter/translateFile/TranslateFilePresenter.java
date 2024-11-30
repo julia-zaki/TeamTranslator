@@ -22,7 +22,6 @@ public class TranslateFilePresenter implements TranslateFileOutputBoundary {
     @Override
     public void prepareSuccessView(TranslateFileOutputData translateFileOutputData) {
         translateFileViewModel.getState().setOutputFile(translateFileOutputData.getOutputFile());
-        translateFileViewModel.getState().setInputLanguage(translateFileOutputData.getInputLanguage());
         translateFileViewModel.getState().setError(null);
         translateFileViewModel.firePropertyChanged();
 
