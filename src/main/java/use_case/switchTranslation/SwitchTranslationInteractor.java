@@ -30,8 +30,7 @@ public class SwitchTranslationInteractor implements SwitchTranslationInputBounda
     @Override
     public void execute(SwitchTranslationInputData switchTranslationInputData) {
         try {
-            if (switchTranslationInputData.getInputText() == null || switchTranslationInputData.getInputText().trim()
-                    .isEmpty()) {
+            if (switchTranslationInputData.getInputText().trim().isEmpty()) {
                 switchTranslationOutputBoundary.prepareFailView("Input text cannot be empty. Please provide "
                         + "text to translate.");
             }

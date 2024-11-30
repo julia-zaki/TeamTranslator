@@ -1,8 +1,8 @@
 package use_case.switchTranslation;
 
-import use_case.translateText.DataAccessException;
-
 import java.util.Map;
+
+import use_case.translateText.DataAccessException;
 
 /**
  * Interface for the Switch Translation DAO. It consists of methods for
