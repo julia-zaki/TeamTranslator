@@ -17,14 +17,9 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
+import app.TranslateFileAppBuilder;
 import data_access.DBTranslateFileDataAccessObject;
 import interface_adapter.translateFile.TranslateFileController;
 import interface_adapter.translateFile.TranslateFileState;
@@ -42,6 +37,7 @@ public class TranslateFileView extends JPanel implements ActionListener, Propert
     private static final Font FILEBUTTONS_FONT = new Font("Arial", Font.PLAIN, 25);
     private static final Color UPLOADBUTTON_COLOR = new Color(47, 237, 149);
     private static final Color DOWNLOADBUTTON_COLOR = new Color(170, 98, 209);
+
 
     private final TranslateFileViewModel translateFileViewModel;
 

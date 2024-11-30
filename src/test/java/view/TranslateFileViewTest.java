@@ -10,6 +10,7 @@ import use_case.translateFile.TranslateFileInteractor;
 
 
 import javax.swing.*;
+import java.awt.*;
 
 
 public class TranslateFileViewTest {
@@ -23,7 +24,7 @@ public class TranslateFileViewTest {
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setTitle("File Translator");
-        frame.setSize(400, 400);
+        frame.setSize(800, 600);
 
         frame.add(view);
         frame.setVisible(true);

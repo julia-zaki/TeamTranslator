@@ -15,7 +15,7 @@ public class TranslateTextViewTest {
     public static void main(String[] args) {
         TranslateTextViewModel model = new TranslateTextViewModel();
         TranslateTextDataAccessInterface dataAccess = new DBTranslateTextDataAccessObject();
-        TranslateTextView view = new TranslateTextView(model, dataAccess);
+        TranslateTextView view = new TranslateTextView(model);
         TranslateTextController controller = new TranslateTextController(new TranslateTextInteractor(
                 dataAccess, new TranslateTextPresenter(model),
                 new TextTranslator()));
