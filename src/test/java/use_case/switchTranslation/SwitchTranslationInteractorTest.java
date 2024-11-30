@@ -2,6 +2,9 @@ package use_case.switchTranslation;
 
 import data_access.DBTranslateTextDataAccessObject;
 import org.junit.Test;
+import use_case.translateText.DataAccessException;
+
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -116,4 +119,37 @@ public class SwitchTranslationInteractorTest {
 
         switchTranslationInteractor.execute(inputData);
     }
+
+    @Test
+    public void failureDataAccessExceptionTest() {
+        // Create input data
+        SwitchTranslationInputData inputData = new SwitchTranslationInputData("Test text", "English", "French");
+
+        // Mocked Data Access Object that throws DataAccessException
+        SwitchTranslationDataAccessInterface switchTranslationDAO = new SwitchTranslationDataAccessInterface() {
+            @Override
+            public Map<String, String> switchLanguagesAndTexts(String inputText, String inputLanguage, String outputLanguage) throws DataAccessException {
+                throw new DataAccessException("Simulated data access error");
+            }
+        };
+
+        // Output Boundary to capture failure messages
+        SwitchTranslationOutputBoundary switchTranslationOB = new SwitchTranslationOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SwitchTranslationOutputData switchTranslationOutputData) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage) {
+                assertEquals("There seems to be an error with the switching process. Please try again.", errorMessage);
+            }
+        };
+
+        // Create and execute the interactor
+        SwitchTranslationInputBoundary switchTranslationInteractor = new SwitchTranslationInteractor(switchTranslationDAO, switchTranslationOB);
+
+        switchTranslationInteractor.execute(inputData);
+    }
+
 }
