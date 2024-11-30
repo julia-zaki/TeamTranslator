@@ -9,7 +9,7 @@ public class TranslateFileOutputData {
 
     private final File outputFile;
 
-    public TranslateFileOutputData( File outputFile ) {
+    public TranslateFileOutputData(File outputFile) {
         this.outputFile = outputFile;
     }
 

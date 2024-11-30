@@ -1,11 +1,9 @@
 package app;
 
 import data_access.DBImageUploadDataAccessObject;
-import data_access.DBTranslateFileDataAccessObject;
 import data_access.DBTranslateTextDataAccessObject;
 import use_case.imageUpload.ImageUploadDataAccessInterface;
 import use_case.switchTranslation.SwitchTranslationDataAccessInterface;
-import use_case.translateFile.TranslateFileDataAccessInterface;
 import use_case.translateText.TranslateTextDataAccessInterface;
 
 /**
