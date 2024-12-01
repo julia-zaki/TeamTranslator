@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 
 import interface_adapter.imageUpload.ImageUploadController;
 import interface_adapter.switchTranslation.SwitchTranslationController;
+import interface_adapter.textToSpeech.TextToSpeechController;
 import interface_adapter.translateText.TranslateState;
 import interface_adapter.translateText.TranslateTextController;
 
@@ -117,7 +118,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
      * Injects TextToSpeechController into speaker button.
      * @param textToSpeechController the controller for TextToSpeech Use Case
      */
-    public void setTextToSpeechController(MockTextToSpeechController textToSpeechController) {
+    public void setTextToSpeechController(TextToSpeechController textToSpeechController) {
         inputPanel.setTextToSpeechController(textToSpeechController);
         outputPanel.setTextToSpeechController(textToSpeechController);
     }

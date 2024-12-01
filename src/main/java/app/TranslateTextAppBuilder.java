@@ -8,6 +8,7 @@ import interface_adapter.imageUpload.ImageUploadController;
 import interface_adapter.imageUpload.ImageUploadPresenter;
 import interface_adapter.switchTranslation.SwitchTranslationController;
 import interface_adapter.switchTranslation.SwitchTranslationPresenter;
+import interface_adapter.textToSpeech.TextToSpeechPresenter;
 import interface_adapter.translateText.TranslateTextController;
 import interface_adapter.translateText.TranslateTextPresenter;
 import interface_adapter.translateText.TranslateTextViewModel;
@@ -17,10 +18,13 @@ import use_case.imageUpload.ImageUploadOutputBoundary;
 import use_case.switchTranslation.SwitchTranslationDataAccessInterface;
 import use_case.switchTranslation.SwitchTranslationInteractor;
 import use_case.switchTranslation.SwitchTranslationOutputBoundary;
+import use_case.textToSpeech.TextToSpeechDataAccessInterface;
+import use_case.textToSpeech.TextToSpeechInteractor;
+import use_case.textToSpeech.TextToSpeechOutputBoundary;
 import use_case.translateText.TranslateTextDataAccessInterface;
 import use_case.translateText.TranslateTextInteractor;
 import use_case.translateText.TranslateTextOutputBoundary;
-import view.translateText.MockTextToSpeechController;
+import interface_adapter.textToSpeech.TextToSpeechController;
 import view.translateText.TranslateTextView;
 import view.translateText.TranslateTextViewBuilder;
 
@@ -33,6 +37,7 @@ public class TranslateTextAppBuilder {
     private TranslateTextDataAccessInterface translateTextDAO;
     private ImageUploadDataAccessInterface imageUploadDAO;
     private SwitchTranslationDataAccessInterface switchTranslationDAO;
+    private TextToSpeechDataAccessInterface textToSpeechDAO;
     private TranslateTextViewModel translateTextViewModel = new TranslateTextViewModel();
     private TranslateTextView translateTextView;
 
@@ -135,9 +140,35 @@ public class TranslateTextAppBuilder {
         return this;
     }
 
+    /**
+     * Sets the TextToSpeechDAO to be used in this application.
+     * @param textToSpeechDataAccess the DAO to use
+     * @return this builder
+     */
+    public TranslateTextAppBuilder addTextToSpeechDAO(TextToSpeechDataAccessInterface textToSpeechDataAccess) {
+        textToSpeechDAO = textToSpeechDataAccess;
+        return this;
+    }
+
+    /**
+     * Creates the objects for Text to Speech Use Case and connects the TranslateTextView to its
+     * controller. Uses the same view as TranslateTextView.
+     * <p>This method must be called after addTranslateTextView!</p>
+     * @return this builder
+     * @throws RuntimeException if this method is called before addTranslateTextView
+     */
     public TranslateTextAppBuilder addTextToSpeechUseCase() {
-        final MockTextToSpeechController testController = new MockTextToSpeechController();
-        translateTextView.setTextToSpeechController(testController);
+        final TextToSpeechOutputBoundary textToSpeechOutputBoundary = new TextToSpeechPresenter(translateTextViewModel);
+
+        final TextToSpeechInteractor textToSpeechInteractor = new TextToSpeechInteractor(
+                (TextToSpeechDataAccessInterface) translateTextDAO,
+                textToSpeechOutputBoundary);
+
+        final TextToSpeechController controller = new TextToSpeechController(textToSpeechInteractor);
+        if (translateTextView == null) {
+            throw new RuntimeException("addTranslateTextView must be called before addTextToSpeechUseCase");
+        }
+        translateTextView.setTextToSpeechController(controller);
         return this;
     }
 

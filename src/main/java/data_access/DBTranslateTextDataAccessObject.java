@@ -7,15 +7,24 @@ import java.util.Map;
 import com.deepl.api.DeepLException;
 import com.deepl.api.TextResult;
 import use_case.switchTranslation.SwitchTranslationDataAccessInterface;
+import use_case.textToSpeech.TextToSpeechDataAccessInterface;
 import use_case.translateText.DataAccessException;
 import use_case.translateText.TranslateTextDataAccessInterface;
+
+import java.util.Locale;
+import javax.speech.AudioException;
+import javax.speech.Central;
+import javax.speech.EngineException;
+import javax.speech.synthesis.Synthesizer;
+import javax.speech.synthesis.SynthesizerModeDesc;
 
 /**
  * The DAO for translating text using DeepL API.
  * API link: <a href="https://developers.deepl.com/docs/api-reference/translate">...</a>.
  */
-public class DBTranslateTextDataAccessObject extends DeeplTranslator implements TranslateTextDataAccessInterface,
-        SwitchTranslationDataAccessInterface {
+
+public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessInterface,
+        SwitchTranslationDataAccessInterface, TextToSpeechDataAccessInterface {
 
     public DBTranslateTextDataAccessObject() {
     }
@@ -95,5 +104,33 @@ public class DBTranslateTextDataAccessObject extends DeeplTranslator implements 
         switchedResult.put("outputLanguage", outputLanguageClass.giveOutput(inputLanguage));
 
         return switchedResult;
+    }
+
+    /**
+     * Converting text to speech to be played when the speaker button is pressed.
+     * @param inputText text obtained from the text field.
+     * @throws DataAccessException if the conversion was not successful for any reason.
+     */
+    @Override
+    public String convertToSpeech(String inputText) throws DataAccessException {
+        try {
+            System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
+
+            Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
+
+            final Synthesizer synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.US));
+
+            synthesizer.allocate();
+
+            synthesizer.resume();
+
+            synthesizer.speakPlainText(inputText, null);
+            synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+
+        }
+        catch (EngineException | AudioException | InterruptedException ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+        return inputText;
     }
 }
