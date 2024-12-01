@@ -1,7 +1,6 @@
 package data_access;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.deepl.api.DeepLException;
@@ -23,7 +22,7 @@ import javax.speech.synthesis.SynthesizerModeDesc;
  * API link: <a href="https://developers.deepl.com/docs/api-reference/translate">...</a>.
  */
 
-public class DBTranslateTextDataAccessObject extends DeeplTranslator TranslateTextDataAccessInterface,
+public class DBTranslateTextDataAccessObject extends DeeplTranslator implements TranslateTextDataAccessInterface,
         SwitchTranslationDataAccessInterface, TextToSpeechDataAccessInterface {
 
     public DBTranslateTextDataAccessObject() {
