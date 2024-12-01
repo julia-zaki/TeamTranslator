@@ -12,6 +12,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -25,7 +26,7 @@ import use_case.translateText.DataAccessException;
  * API links: <a href="https://developers.deepl.com/docs/api-reference/translate">...</a>.
  *            <a href="https://developers.deepl.com/docs/api-reference/document">...</a>.
  */
-public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessObject
+public class DBTranslateFileDataAccessObject extends DeeplTranslator
         implements TranslateFileDataAccessInterface {
 
     private static final String AUTH_KEY = "a3c3d2b6-e5e2-42ce-aac7-aba5f20a0571:fx";
@@ -182,5 +183,27 @@ public class DBTranslateFileDataAccessObject extends DBTranslateTextDataAccessOb
         catch (IOException | InterruptedException | URISyntaxException ex) {
             throw new DataAccessException(ex.getMessage());
         }
+    }
+
+    /**
+     * Return all possible input languages available for translation.
+     *
+     * @return the list of input languages
+     */
+    @Override
+    public List<String> getInputLanguages() {
+        return super.getInputLanguages();
+    }
+
+    /**
+     * Return all possible output languages for the given input language.
+     * If the input language is null, return the list of all possible output languages.
+     *
+     * @param inputLanguage the input language
+     * @return the list of output languages
+     */
+    @Override
+    public List<String> getOutputLanguages(String inputLanguage) {
+        return super.getOutputLanguages(inputLanguage);
     }
 }
