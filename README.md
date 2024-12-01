@@ -28,6 +28,20 @@ This Translator Program requires installation of FreeTTS.
 
 ![FreeTTS Installation](Images/FreeTTS%20Install.png)
 
+# Contributions
+To contribute to this project, open an issue or submit a merge request.
+
+To fork this project on GitHub, click the fork button in the top right of the repository. 
+Provide a brief description of the changes you intend on making to the project, and click the “Create Fork” button.
+
+In your merge request, please summarize with clarity which files were modified and what files were added. 
+Make sure to explain why these changes were necessary.
+
+The protocols for reviewing contributions are as follows:
+Your code should have clean coding style and code correctness, include tests and state test coverage, 
+adhere to Clean Architecture and SOLID principles, and include javadocs that are accurate, clear, complete, 
+easy to use, and up to date.
+
 
 # Main View Sketch
 ![Main View](Images/Main%20View.jpg)
