@@ -25,4 +25,5 @@ public interface LanguageMapperInterface {
      */
     String giveInput(String outputLanguage)
             throws DataAccessException;
+
 }

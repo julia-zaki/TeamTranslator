@@ -72,8 +72,9 @@ public class DBTranslateTextDataAccessObject extends DeeplTranslator implements 
     public Map<String, String> switchLanguagesAndTexts(String inputText, String inputLanguage, String outputLanguage)
             throws DataAccessException {
         // translating the text using the translateText method
-        final LanguageMapperInterface outputlanguageClass = GetLanguageClass.giveOutputLanguageClass(inputLanguage);
-        final LanguageMapperInterface inputlanguageClass = GetLanguageClass.giveInputLanguageClass(outputLanguage);
+        GetLanguageClass languageClassGetter = new GetLanguageClass();
+        final LanguageMapperInterface outputLanguageClass = languageClassGetter.giveLanguageClass(inputLanguage);
+        final LanguageMapperInterface inputLanguageClass = languageClassGetter.giveLanguageClass(outputLanguage);
 
         final Map<String, String> translationResult = translateText(inputText, inputLanguage, outputLanguage);
 
@@ -87,11 +88,11 @@ public class DBTranslateTextDataAccessObject extends DeeplTranslator implements 
 
         switchedResult.put(Constants.TEXT_KEY, translatedText);
 
-        switchedResult.put(Constants.LANGUAGE_KEY, inputlanguageClass.giveInput(outputLanguage));
+        switchedResult.put(Constants.LANGUAGE_KEY, inputLanguageClass.giveInput(outputLanguage));
 
         switchedResult.put("translatedText", inputText);
 
-        switchedResult.put("outputLanguage", outputlanguageClass.giveOutput(inputLanguage));
+        switchedResult.put("outputLanguage", outputLanguageClass.giveOutput(inputLanguage));
 
         return switchedResult;
     }

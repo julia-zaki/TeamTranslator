@@ -136,11 +136,24 @@ public class DeeplTranslator {
 
         final List<String> result = new ArrayList<>();
         for (Language targetLanguage : targetLanguages) {
-            result.add(targetLanguage.getName());
 
-            codeToLanguage.put(targetLanguage.getCode(), targetLanguage.getName());
-            languageToCode.put(targetLanguage.getName(), targetLanguage.getCode());
+            // Fix bug with DeepL API which returns Chinese (Simplified) instead of Chinese (traditional)
+            // by manually adding Chinese target languages
+            if (!"Chinese (simplified)".equals(targetLanguage.getName())) {
+                result.add(targetLanguage.getName());
+
+                codeToLanguage.put(targetLanguage.getCode(), targetLanguage.getName());
+                languageToCode.put(targetLanguage.getName(), targetLanguage.getCode());
+            }
+
         }
+
+        result.add("Chinese (simplified)");
+        result.add("Chinese (traditional)");
+        codeToLanguage.put("zh-HANS", "Chinese (simplified)");
+        languageToCode.put("Chinese (simplified)", "zh-HANS");
+        codeToLanguage.put("zh-HANT", "Chinese (traditional)");
+        languageToCode.put("Chinese (traditional)", "zh-HANT");
 
         outputLanguages = result;
     }
