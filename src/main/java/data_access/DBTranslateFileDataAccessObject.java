@@ -12,7 +12,6 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -29,7 +28,6 @@ import use_case.translateText.DataAccessException;
 public class DBTranslateFileDataAccessObject extends DeeplTranslator
         implements TranslateFileDataAccessInterface {
 
-    private static final String AUTH_KEY = "a3c3d2b6-e5e2-42ce-aac7-aba5f20a0571:fx";
     private static final String BOUNDARY = "----WebKitFormBoundary"
             + Long.toHexString(System.currentTimeMillis()) + new Random().nextInt(1000);
     private static final String AUTHORIZATION = "Authorization";
@@ -81,7 +79,7 @@ public class DBTranslateFileDataAccessObject extends DeeplTranslator
 
         return HttpRequest.newBuilder()
                 .uri(URI.create(url))
-                .header(AUTHORIZATION, DEEP_L_AUTH_KEY + AUTH_KEY)
+                .header(AUTHORIZATION, DEEP_L_AUTH_KEY + super.getAuthKey())
                 .header(CONTENT_TYPE, "multipart/form-data; boundary=" + BOUNDARY)
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
@@ -119,7 +117,7 @@ public class DBTranslateFileDataAccessObject extends DeeplTranslator
             final HttpClient client = HttpClient.newHttpClient();
             final String body = "{\"document_key\":\"" + documentKey + "\"}";
             final HttpRequest request = HttpRequest.newBuilder(url)
-                    .header(AUTHORIZATION, DEEP_L_AUTH_KEY + AUTH_KEY)
+                    .header(AUTHORIZATION, DEEP_L_AUTH_KEY + super.getAuthKey())
                     .header(CONTENT_TYPE, "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body))
                     .build();
@@ -164,7 +162,7 @@ public class DBTranslateFileDataAccessObject extends DeeplTranslator
             final HttpClient client = HttpClient.newHttpClient();
             final String body = "{\"document_key\":\"" + documentKey + "\"}";
             final HttpRequest request = HttpRequest.newBuilder(url)
-                    .header(AUTHORIZATION, DEEP_L_AUTH_KEY + AUTH_KEY)
+                    .header(AUTHORIZATION, DEEP_L_AUTH_KEY + super.getAuthKey())
                     .header(CONTENT_TYPE, "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(body))
                     .build();
@@ -183,27 +181,5 @@ public class DBTranslateFileDataAccessObject extends DeeplTranslator
         catch (IOException | InterruptedException | URISyntaxException ex) {
             throw new DataAccessException(ex.getMessage());
         }
-    }
-
-    /**
-     * Return all possible input languages available for translation.
-     *
-     * @return the list of input languages
-     */
-    @Override
-    public List<String> getInputLanguages() {
-        return super.getInputLanguages();
-    }
-
-    /**
-     * Return all possible output languages for the given input language.
-     * If the input language is null, return the list of all possible output languages.
-     *
-     * @param inputLanguage the input language
-     * @return the list of output languages
-     */
-    @Override
-    public List<String> getOutputLanguages(String inputLanguage) {
-        return super.getOutputLanguages(inputLanguage);
     }
 }

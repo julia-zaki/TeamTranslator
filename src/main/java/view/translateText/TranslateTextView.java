@@ -15,7 +15,6 @@ import interface_adapter.switchTranslation.SwitchTranslationController;
 import interface_adapter.textToSpeech.TextToSpeechController;
 import interface_adapter.translateText.TranslateState;
 import interface_adapter.translateText.TranslateTextController;
-import interface_adapter.translateText.TranslateTextViewModel;
 
 /**
  * The View for when the user is translating.
@@ -31,10 +30,7 @@ public class TranslateTextView extends JPanel implements ActionListener, Propert
     private TranslateTextViewTextPanel inputPanel;
     private TranslateTextViewTextPanel outputPanel;
 
-    public TranslateTextView(TranslateTextViewModel translateTextViewModel) {
-
-        translateTextViewModel.addPropertyChangeListener(this);
-
+    public TranslateTextView() {
     }
 
     /**

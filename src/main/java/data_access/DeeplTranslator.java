@@ -10,11 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.deepl.api.Translator;
 import org.json.JSONArray;
 
 import com.deepl.api.DeepLException;
 import com.deepl.api.Language;
+import com.deepl.api.Translator;
 import use_case.translateText.DataAccessException;
 
 /**
@@ -136,11 +136,24 @@ public class DeeplTranslator {
 
         final List<String> result = new ArrayList<>();
         for (Language targetLanguage : targetLanguages) {
-            result.add(targetLanguage.getName());
 
-            codeToLanguage.put(targetLanguage.getCode(), targetLanguage.getName());
-            languageToCode.put(targetLanguage.getName(), targetLanguage.getCode());
+            // Fix bug with DeepL API which returns Chinese (Simplified) instead of Chinese (traditional)
+            // by manually adding Chinese target languages
+            if (!"Chinese (simplified)".equals(targetLanguage.getName())) {
+                result.add(targetLanguage.getName());
+
+                codeToLanguage.put(targetLanguage.getCode(), targetLanguage.getName());
+                languageToCode.put(targetLanguage.getName(), targetLanguage.getCode());
+            }
+
         }
+
+        result.add("Chinese (simplified)");
+        result.add("Chinese (traditional)");
+        codeToLanguage.put("zh-HANS", "Chinese (simplified)");
+        languageToCode.put("Chinese (simplified)", "zh-HANS");
+        codeToLanguage.put("zh-HANT", "Chinese (traditional)");
+        languageToCode.put("Chinese (traditional)", "zh-HANT");
 
         outputLanguages = result;
     }
@@ -149,11 +162,15 @@ public class DeeplTranslator {
         return translator;
     }
 
+    protected String getAuthKey() {
+        return AUTH_KEY;
+    }
+
     /**
      * Return all possible input languages available for translation.
      * @return the list of input languages
      */
-    protected List<String> getInputLanguages() {
+    public List<String> getInputLanguages() {
         return inputLanguages;
     }
 
@@ -164,7 +181,7 @@ public class DeeplTranslator {
      * @param inputLanguage the input language
      * @return the list of output languages
      */
-    protected List<String> getOutputLanguages(String inputLanguage) {
+    public List<String> getOutputLanguages(String inputLanguage) {
         return outputLanguages;
     }
 }

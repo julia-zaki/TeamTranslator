@@ -45,7 +45,8 @@ public class TranslateTextInteractor implements TranslateTextInputBoundary {
                 final TranslateTextOutputData translateTextOutputData = new TranslateTextOutputData(
                         textTranslator.getInputText(),
                         textTranslator.getOutputText(),
-                        textTranslator.getInputLanguage());
+                        textTranslator.getInputLanguage(),
+                        textTranslator.getOutputLanguage());
                 translateTextOutputBoundary.prepareSuccessView(translateTextOutputData);
             }
         }

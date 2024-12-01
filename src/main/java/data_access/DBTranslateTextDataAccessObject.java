@@ -1,7 +1,6 @@
 package data_access;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.deepl.api.DeepLException;
@@ -23,7 +22,7 @@ import javax.speech.synthesis.SynthesizerModeDesc;
  * API link: <a href="https://developers.deepl.com/docs/api-reference/translate">...</a>.
  */
 
-public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessInterface,
+public class DBTranslateTextDataAccessObject extends DeeplTranslator implements TranslateTextDataAccessInterface,
         SwitchTranslationDataAccessInterface, TextToSpeechDataAccessInterface {
 
     public DBTranslateTextDataAccessObject() {
@@ -67,27 +66,6 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
     }
 
     /**
-     * Return all possible input languages available for translation.
-     * @return the list of input languages
-     */
-    @Override
-    public List<String> getInputLanguages() {
-        return super.getInputLanguages();
-    }
-
-    /**
-     * Return all possible output languages for the given input language.
-     * If the input language is null, return the list of all possible output languages.
-     *
-     * @param inputLanguage the input language
-     * @return the list of output languages
-     */
-    @Override
-    public List<String> getOutputLanguages(String inputLanguage) {
-        return super.getOutputLanguages(inputLanguage);
-    }
-
-    /**
      * Switch the input language to be the output language and vice versa. Switch the input text to be the output
      * text and vice versa
      *
@@ -102,8 +80,9 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
     public Map<String, String> switchLanguagesAndTexts(String inputText, String inputLanguage, String outputLanguage)
             throws DataAccessException {
         // translating the text using the translateText method
-        final LanguageMapperInterface outputlanguageClass = GetLanguageClass.giveOutputLanguageClass(inputLanguage);
-        final LanguageMapperInterface inputlanguageClass = GetLanguageClass.giveInputLanguageClass(outputLanguage);
+        GetLanguageClass languageClassGetter = new GetLanguageClass();
+        final LanguageMapperInterface outputLanguageClass = languageClassGetter.giveLanguageClass(inputLanguage);
+        final LanguageMapperInterface inputLanguageClass = languageClassGetter.giveLanguageClass(outputLanguage);
 
         final Map<String, String> translationResult = translateText(inputText, inputLanguage, outputLanguage);
 
@@ -117,11 +96,11 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
 
         switchedResult.put(Constants.TEXT_KEY, translatedText);
 
-        switchedResult.put(Constants.LANGUAGE_KEY, inputlanguageClass.giveInput(outputLanguage));
+        switchedResult.put(Constants.LANGUAGE_KEY, inputLanguageClass.giveInput(outputLanguage));
 
         switchedResult.put("translatedText", inputText);
 
-        switchedResult.put("outputLanguage", outputlanguageClass.giveOutput(inputLanguage));
+        switchedResult.put("outputLanguage", outputLanguageClass.giveOutput(inputLanguage));
 
         return switchedResult;
     }
