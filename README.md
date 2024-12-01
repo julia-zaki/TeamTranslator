@@ -1,5 +1,5 @@
 # The Translator
-# Team Names and GitHub Usernames:
+## Contributors and GitHub Usernames:
 Julia Zaki / julia-zaki
 
 Christina Huang / HChristinaH
@@ -10,7 +10,28 @@ Manjun Zhu / Karrrrmen
 
 Mingyu (Roy) Son / SonM12
 
-# Installation Instructions
+## Table of Contents
+
+1. [Summary of the project's purpose](#1-summary-of-the-projects-purpose)
+
+2. [Features of the Software](#2-features-of-the-software)
+
+3. [Installation Instructions](#3-installation-instructions)
+
+4. [Usage guide](#4-usage-guide)
+
+5. [License](#5-license)
+
+6. [Feedback](#6-feedback)
+
+7. [Contributions](#7-contributions)
+
+
+## 1. Summary of the project's purpose
+
+## 2. Features of the Software
+
+## 3. Installation Instructions
 This Translator Program requires installation of FreeTTS.
 1. Download FreeTTS zip file from https://sourceforge.net/projects/freetts/files/ .
 2. Extract downloaded zip file.
@@ -28,7 +49,28 @@ This Translator Program requires installation of FreeTTS.
 
 ![FreeTTS Installation](Images/FreeTTS%20Install.png)
 
-# Contributions
+## 4. Usage guide
+
+## 5. License
+License is in the Project file.
+
+## 6. Feedback
+Users can give feedback via the Google forms link below.
+
+We believe valid feedback is in the form of what was done well and what could be improved. Your feedback should target usability and simplicity of use, performance, presence of bugs and suggestions for new features. 
+Feedback allows us to collect valuable insights from users to help us enhance the functionality, usability, and overall user experience of the software.
+
+_Guidelines for what to expect when submitting your feedback:_
+
+Providing your feedback: Submit your feedback while considering what counts as valid feedback for us (as mentioned above). Share your experiences and areas of improvements.
+How we review your feedback: Upon submitting your feedback, we will review it thoroughly. Feedback regarding bugs and issues will be addressed immediately to ensure the software works correctly for its current users. Constructive feedback will be taken into consideration during future improvements of the software.
+Updates: Suggestions and fixes may take time implement so make sure you look out for updates of the software as soon as they become available.
+Stay engaged: Feel free to provide your feedback at any time. Your feedback helps us improve The Translator!!
+
+<ins>Google form link:</ins>
+https://forms.gle/XRTDruZFNydroKSE9
+
+## 7. Contributions
 To contribute to this project, open an issue or submit a merge request.
 
 To fork this project on GitHub, click the fork button in the top right of the repository. 
