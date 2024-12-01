@@ -5,9 +5,29 @@ Julia Zaki / julia-zaki
 Christina Huang / HChristinaH
 
 Edan Wong / 903Edan
-.
+
 Manjun Zhu / Karrrrmen
-.
+
+Mingyu (Roy) Son / SonM12
+
+# Installation Instructions
+This Translator Program requires installation of FreeTTS.
+1. Download FreeTTS zip file from https://sourceforge.net/projects/freetts/files/ .
+2. Extract downloaded zip file.
+3. Browse to the following path.
+   * freetts-1.2.2-bin/freetts-1.2/lib/
+4. Run jsapi.exe file and install freeTTS
+    * For Mac users, open terminal and browse to the extracted /lib folder.
+    * chmod +x ./jsapi.sh and afterwards sh ./jsapi
+5. Check jsapi.jar file is installed in the /lib folder.
+6. Include /lib folder into the project.
+   1. File -> project structure -> Project Settings -> Modules
+   2. Click "+" icon, then select "1 JARs or Directories"
+   3. Select the entire /lib folder.
+   4. Apply then OK.
+
+![FreeTTS Installation](Images/FreeTTS%20Install.png)
+
 
 # Main View Sketch
 ![Main View](Images/Main%20View.jpg)
