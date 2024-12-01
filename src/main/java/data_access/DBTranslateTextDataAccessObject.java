@@ -299,11 +299,11 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
             synthesizer.speakPlainText(inputText, null);
             synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
 
-            synthesizer.deallocate();
         }
         catch (EngineException | AudioException | InterruptedException ex) {
             throw new DataAccessException(ex.getMessage());
         }
+        final Synthesizer synthesizer = null;
         return inputText;
     }
 }
