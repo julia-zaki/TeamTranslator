@@ -10,7 +10,7 @@ import java.util.List;
 public class GetLanguageClass {
 
     LanguageClassFactory factory = new LanguageClassFactory();
-    private static final List<LanguageClass> languageClasses = new ArrayList<LanguageClass>();
+    private static final List<LanguageClass> languageClasses = new ArrayList<>();
 
     public GetLanguageClass() {
         createLanguageClasses();
@@ -37,7 +37,10 @@ public class GetLanguageClass {
            }
        }
 
-       // Else, input language and output languages are the same when switched
-       return factory.createLanguageClass(language, new String[]{language});
+       // Else, input language and output languages are the same when switched.
+        // Use memoization to prevent duplicate classes from being created
+        LanguageClass newLanguageClass = factory.createLanguageClass(language, new String[]{language});
+        languageClasses.add(newLanguageClass);
+        return newLanguageClass;
     }
 }
