@@ -23,7 +23,7 @@ import javax.speech.synthesis.SynthesizerModeDesc;
  * API link: <a href="https://developers.deepl.com/docs/api-reference/translate">...</a>.
  */
 
-public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessInterface,
+public class DBTranslateTextDataAccessObject extends DeeplTranslator TranslateTextDataAccessInterface,
         SwitchTranslationDataAccessInterface, TextToSpeechDataAccessInterface {
 
     public DBTranslateTextDataAccessObject() {
