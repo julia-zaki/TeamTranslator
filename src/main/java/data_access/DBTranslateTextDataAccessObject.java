@@ -303,7 +303,6 @@ public class DBTranslateTextDataAccessObject implements TranslateTextDataAccessI
         catch (EngineException | AudioException | InterruptedException ex) {
             throw new DataAccessException(ex.getMessage());
         }
-        final Synthesizer synthesizer = null;
         return inputText;
     }
 }
